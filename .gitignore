@@ -31,5 +31,5 @@ bin/*
 */read.1.tlog
 bin
 obj
-_ReSharper*
-/src/.vs/X12/DesignTimeBuild/.dtbcache.v2
+_ReSharper.Caches
+.vs
