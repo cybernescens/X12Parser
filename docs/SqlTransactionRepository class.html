@@ -6,13 +6,13 @@
 <h2>SqlTransactionRepository Class Diagram</h2>
 <p>These two classes are split apart because their a quite a number of constructor arguments you need when you are importing data that aren't needed when you are reading data.&nbsp; If you are not using the Revision feature, all you need outside of the OopFactory.X12.ImportX12
  app is to use the SqlReadOnlyTransactionRepository.<br>
-<img title="SqlTransactionRepository.png" src="http://i3.codeplex.com/Download?ProjectName=x12parser&DownloadId=663744" alt="SqlTransactionRepository.png"></p>
+<img title="SqlTransactionRepository.png" src="./SqlTransactionRepository.png" alt="SqlTransactionRepository.png"></p>
 <p>These classes have been created as generics so that you choose between using SQL's int, bigint or uniqueidentifier&nbsp;as your table identities, by using the class with int, long or Guid for T.</p>
 <p>The Container table will hold the identities for interchanges, function groups, transaction sets and for loops, so it will fill up quick, but will probably still be sufficient to use Int in many cases.</p>
 <hr>
 <h2>SqlReadOnlyTransactionRepository Methods</h2>
 <h3>GetTransactionSets</h3>
-<p><img title="RepoTransactionSet.png" src="http://i3.codeplex.com/Download?ProjectName=x12parser&DownloadId=663757" alt="RepoTransactionSet.png"></p>
+<p><img title="RepoTransactionSet.png" src="./RepoTransactionSet.png" alt="RepoTransactionSet.png"></p>
 <p>&nbsp;</p>
 <h3>GetTransactionSetSegments</h3>
 <p>GetTransactionSetSegments accepts the following arguments:</p>
@@ -22,10 +22,10 @@
 </li><li>includeControlSegments - will add the ISA,GS,GE and IEA segments to the segments returned.
 </li></ul>
 <p>It will return a List&lt;RepoSegment&lt;T&gt;&gt; which is shown below:</p>
-<p><img title="RepoSegment.png" src="http://i3.codeplex.com/Download?ProjectName=x12parser&DownloadId=663756" alt="RepoSegment.png"></p>
+<p><img title="RepoSegment.png" src="./RepoSegment.png" alt="RepoSegment.png"></p>
 <p>&nbsp;</p>
 <h3>GetLoops</h3>
-<p><img title="RepoLoop.png" src="http://i3.codeplex.com/Download?ProjectName=x12parser&DownloadId=663755" alt="RepoLoop.png"></p>
+<p><img title="RepoLoop.png" src="./RepoLoop.png" alt="RepoLoop.png"></p>
 <p>&nbsp;</p>
 <h3>GetTransactionSegments</h3>
 <p>A transaction is defined differently for each transaction set.&nbsp; The SqlTransactionRepository allows you to treat any loop in your transact set as a transaction.</p>

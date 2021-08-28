@@ -6,4 +6,16 @@
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Specifications\**\*.xml" />
+    <Compile Remove="Specifications\**\*.xml" />
+    <EmbeddedResource Include="Specifications\**\*.xml" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="Transformations\**\*.xslt" />
+    <Compile Remove="Transformations\**\*.xslt" />
+    <EmbeddedResource Include="Transformations\**\*.xslt" />
+  </ItemGroup>
 </Project>

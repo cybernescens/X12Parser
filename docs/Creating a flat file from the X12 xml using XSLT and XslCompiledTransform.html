@@ -6,17 +6,17 @@ The easiest way to do this and brush up on your XPath query skills is to use an 
 <a href="http://download.codeplex.com/download?ProjectName=x12parser&DownloadId=242069">
 here</a>.</p>
 <h3>Step 1. Create a console application and reference the OopFactory.X12.dll.</h3>
-<div style="margin-left:50px"><img title="CreateProject.png" src="http://i3.codeplex.com/download?ProjectName=x12parser&DownloadId=242055" alt="CreateProject.png" width="630px"></div>
+<div style="margin-left:50px"><img title="CreateProject.png" src="./CreateProject.png" alt="CreateProject.png" width="630px"></div>
 <h3>Step 2. Add an xslt file to your project.</h3>
-<div style="margin-left:50px"><img title="AddNewItemXslt.png" src="http://i3.codeplex.com/download?ProjectName=x12parser&DownloadId=242051" alt="AddNewItemXslt.png" width="600px"></div>
+<div style="margin-left:50px"><img title="AddNewItemXslt.png" src="./AddNewItemXslt.png" alt="AddNewItemXslt.png" width="600px"></div>
 <h3>Step 3. Change the build action of the xslt file to &quot;Embedded Resource&quot;.</h3>
-<div style="margin-left:50px"><img title="ChangeBuildAction.png" src="http://i3.codeplex.com/download?ProjectName=x12parser&DownloadId=242054" alt="ChangeBuildAction.png" width="600px"></div>
+<div style="margin-left:50px"><img title="ChangeBuildAction.png" src="./ChangeBuildAction.png" alt="ChangeBuildAction.png" width="600px"></div>
 <div>This is being done so that we can embed the xslt into the assembly and not worry about locating the file during execution. Optionally you could copy the file to the output directory, but I have had problems with Unit Test that don't run from the location
  of the output directory making the code to locate it a bit more difficult.</div>
 <div>For transformations that may change frequently, such as UI transformations, it might be advantages to not embed the xslt, but for back-end processing this is rarely the case.</div>
 <h3>Step 4. Add a sample edi file to the project that will help test the application.</h3>
 <p>Use any sample EDI you like. For the sake of this example, I have formatted the X12 in this example so that you can see the structure of the edi segments. &nbsp;It should also work just as well without the extra whitespace.</p>
-<div style="margin-left:50px"><img title="AddSampleEdiFile.png" src="http://i3.codeplex.com/download?ProjectName=x12parser&DownloadId=242053" alt="AddSampleEdiFile.png" width="600px"></div>
+<div style="margin-left:50px"><img title="AddSampleEdiFile.png" src="./AddSampleEdiFile.png" alt="AddSampleEdiFile.png" width="600px"></div>
 <h3>Step 5. Change your program file to load to parse the EDI file and use the xslt to transform to a csv format.</h3>
 <p>The following example assumes that you embedded your xslt. &nbsp;If you choose to have an external file instead use the FileStream object instead.</p>
 <div style="color:black; background-color:whitesmoke">
@@ -104,7 +104,7 @@ here</a>.</p>
 <p>Since most transactions are very hierarchical in nature, it might be beneficial to have a separate transformation at different levels so the same information is not repeated so often.</p>
 <p>This is usually managed by having separate CSV files for different levels in the transaction, or having a fixed-width file with a record indicator column to indicate the expected specification of the fixed-width line.</p>
 <h3>Step 7. Change the command line arguments in your Debug configuration to run your sample file.</h3>
-<div style="margin-left:50px"><img title="SetCommandLineArguments.png" src="http://download.codeplex.com/download?ProjectName=x12parser&DownloadId=242060" alt="SetCommandLineArguments.png" width="600px"></div>
+<div style="margin-left:50px"><img title="SetCommandLineArguments.png" src="./SetCommandLineArguments.png" alt="SetCommandLineArguments.png" width="600px"></div>
 <h3>Step 8. Run your application and inspect your output.</h3>
 <p>The expected output is as follows:</p>
 <div style="color:black; background-color:whitesmoke">
