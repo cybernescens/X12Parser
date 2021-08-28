@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--820 Payment Order/Remittance Advice-->
 <TransactionSpecification TransactionSetIdentifierCode="820" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BPR" Usage="Required" Repeat="1" />
-  <Segment SegmentId="BPS"/>
+  <Segment SegmentId="BPS" />
   <Segment SegmentId="NTE" />
   <Segment SegmentId="TRN" Repeat="1" />
   <Segment SegmentId="CUR" Repeat="1" />
@@ -111,7 +112,7 @@
         <StartingSegment SegmentId="ADX" />
         <Segment SegmentId="NTE" />
         <Segment SegmentId="PER" />
-        <Segment SegmentId="DTM"/>
+        <Segment SegmentId="DTM" />
         <Loop LoopId="REF">
           <Name>Reference Identification</Name>
           <StartingSegment SegmentId="REF" />
@@ -241,17 +242,17 @@
   </Loop>
   <Loop LoopId="LS">
     <Name>Detail Loop</Name>
-    <StartingSegment SegmentId="LS"/>
-    <Segment SegmentId="LE" Trailer="true"/>
+    <StartingSegment SegmentId="LS" />
+    <Segment SegmentId="LE" Trailer="true" />
     <Loop LoopId="N1">
       <Name>N1</Name>
-      <StartingSegment SegmentId="N1"/>
+      <StartingSegment SegmentId="N1" />
       <Loop LoopId="RMT">
         <Name>RMT</Name>
-        <StartingSegment SegmentId="RMT"/>
-        <Segment SegmentId="CUR"/>
-        <Segment SegmentId="REF"/>
-        <Segment SegmentId="DTM"/>
+        <StartingSegment SegmentId="RMT" />
+        <Segment SegmentId="CUR" />
+        <Segment SegmentId="REF" />
+        <Segment SegmentId="DTM" />
       </Loop>
     </Loop>
   </Loop>

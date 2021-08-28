@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--199 Real Estate Settlement Information-->
 <TransactionSpecification TransactionSetIdentifierCode="199" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />

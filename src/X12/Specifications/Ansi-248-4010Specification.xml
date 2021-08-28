@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--248 Account Assignment/Inquiry and Service/Status-->
 <TransactionSpecification TransactionSetIdentifierCode="248" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BHT" Usage="Required" Repeat="1" />

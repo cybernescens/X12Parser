@@ -1,39 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace OopFactory.X12.Parsing.Model.Typed
+﻿namespace X12.Parsing.Model.Typed
 {
-    public class TypedSegmentREF : TypedSegment
+  public class TypedSegmentREF : TypedSegment
+  {
+    public TypedSegmentREF()
+      : base("REF") { }
+
+    public string REF01_ReferenceIdQualifier
     {
-        public TypedSegmentREF()
-            : base("REF")
-        {
-        }
-
-        public string REF01_ReferenceIdQualifier
-        {
-            get { return _segment.GetElement(1); }
-            set { _segment.SetElement(1, value); }
-        }
-
-        public string REF02_ReferenceId
-        {
-            get { return _segment.GetElement(2); }
-            set { _segment.SetElement(2, value); }
-        }
-
-        public string REF03_Description
-        {
-            get { return _segment.GetElement(3); }
-            set { _segment.SetElement(3, value); }
-        }
-
-        public string REF04_ReferenceId
-        {
-            get { return _segment.GetElement(4); }
-            set { _segment.SetElement(4, value); }
-        }
+      get => this._segment.GetElement(1);
+      set => this._segment.SetElement(1, value);
     }
+
+    public string REF02_ReferenceId
+    {
+      get => this._segment.GetElement(2);
+      set => this._segment.SetElement(2, value);
+    }
+
+    public string REF03_Description
+    {
+      get => this._segment.GetElement(3);
+      set => this._segment.SetElement(3, value);
+    }
+
+    public string REF04_ReferenceId
+    {
+      get => this._segment.GetElement(4);
+      set => this._segment.SetElement(4, value);
+    }
+  }
 }

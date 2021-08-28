@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--846 Inventory Inquiry/Advice-->
 <TransactionSpecification TransactionSetIdentifierCode="846" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BIA" Usage="Required" Repeat="1" />
@@ -48,15 +49,15 @@
       <Segment SegmentId="LQ" Usage="Required" Repeat="100" />
       <Loop LoopId="LS">
         <Name></Name>
-        <StartingSegment SegmentId="LS"/>
-        <Segment SegmentId="REF"/>
-        <Segment SegmentId="DTM"/>
-        <Segment SegmentId="N1"/>
-        <Segment SegmentId="LE"/>
+        <StartingSegment SegmentId="LS" />
+        <Segment SegmentId="REF" />
+        <Segment SegmentId="DTM" />
+        <Segment SegmentId="N1" />
+        <Segment SegmentId="LE" />
         <Loop LoopId="LM">
           <Name>Code Source Information</Name>
-          <StartingSegment SegmentId="LM"/>
-          <Segment SegmentId="LQ"/>
+          <StartingSegment SegmentId="LM" />
+          <Segment SegmentId="LQ" />
         </Loop>
       </Loop>
     </Loop>
@@ -81,7 +82,7 @@
       <Segment SegmentId="DTM" Repeat="10" />
       <Loop LoopId="REF">
         <Name>Reference Identification</Name>
-        <StartingSegment SegmentId="REF"/>
+        <StartingSegment SegmentId="REF" />
       </Loop>
       <Loop LoopId="SCH" LoopRepeat="25">
         <Name>Line Item Schedule</Name>

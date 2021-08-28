@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--222 Cartage Work Assignment-->
 <TransactionSpecification TransactionSetIdentifierCode="222" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="SCN" Usage="Required" Repeat="1" />

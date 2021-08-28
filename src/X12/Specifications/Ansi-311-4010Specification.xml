@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--311 Canadian Customs Information-->
 <TransactionSpecification TransactionSetIdentifierCode="311" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="B2A" Usage="Required" Repeat="1" />

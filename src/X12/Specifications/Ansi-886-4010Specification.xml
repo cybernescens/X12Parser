@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--886 Customer Call Reporting-->
 <TransactionSpecification TransactionSetIdentifierCode="886" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="N1" Usage="Required" Repeat="2" />

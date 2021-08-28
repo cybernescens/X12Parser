@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--858 Shipment Information-->
 <TransactionSpecification TransactionSetIdentifierCode="858" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="ZC1" Repeat="1" />

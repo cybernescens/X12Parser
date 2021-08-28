@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--200 Mortgage Credit Report-->
 <TransactionSpecification TransactionSetIdentifierCode="200" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />
@@ -161,8 +162,8 @@
   </Loop>
   <Loop LoopId="LS">
     <Name>Loop Header</Name>
-    <StartingSegment SegmentId="LS"/>
-    <Segment SegmentId="LE" Trailer="true"/>
+    <StartingSegment SegmentId="LS" />
+    <Segment SegmentId="LE" Trailer="true" />
     <Loop LoopId="NTE">
       <Name>Note/Special Instruction</Name>
       <StartingSegment SegmentId="NTE" />

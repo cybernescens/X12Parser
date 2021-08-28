@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--893 Item Information Request-->
 <TransactionSpecification TransactionSetIdentifierCode="893" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="G39" Usage="Required" Repeat="9999" />

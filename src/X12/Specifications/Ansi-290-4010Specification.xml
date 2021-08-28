@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--290 Cooperative Advertising Agreements-->
 <TransactionSpecification TransactionSetIdentifierCode="290" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="CMA" Usage="Required" Repeat="1" />

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--175 Court and Law Enforcement Notice-->
 <TransactionSpecification TransactionSetIdentifierCode="175" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />
@@ -11,8 +12,8 @@
     <Segment SegmentId="LS" />
     <Loop LoopId="LS">
       <Name>Loop Header</Name>
-      <StartingSegment SegmentId="LS"/>
-      <Segment SegmentId="LE" Trailer="true"/>
+      <StartingSegment SegmentId="LS" />
+      <Segment SegmentId="LE" Trailer="true" />
       <Loop LoopId="CED">
         <Name>Administration of Justice Event Descrip</Name>
         <StartingSegment SegmentId="CED" />

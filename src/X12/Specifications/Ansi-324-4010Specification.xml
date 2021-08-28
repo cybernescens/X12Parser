@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--324 Vessel Stow Plan (Ocean)-->
 <TransactionSpecification TransactionSetIdentifierCode="324" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="V1" Usage="Required" Repeat="1" />

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--224 Motor Carrier Summary Freight Bill Manifest-->
 <TransactionSpecification TransactionSetIdentifierCode="224" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="CF1" Usage="Required" Repeat="1" />

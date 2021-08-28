@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--196 Contractor Cost Data Reporting-->
 <TransactionSpecification TransactionSetIdentifierCode="196" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BCM" />

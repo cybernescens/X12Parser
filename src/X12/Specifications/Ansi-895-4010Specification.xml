@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--895 Delivery/Return Acknowledgment or Adjustment-->
 <TransactionSpecification TransactionSetIdentifierCode="895" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="G87" Usage="Required" Repeat="1" />

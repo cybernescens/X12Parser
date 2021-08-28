@@ -1,15 +1,14 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OopFactory.X12.Tests.Unit")]
+[assembly: AssemblyTitle("X12.Tests.Unit")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hewlett-Packard")]
-[assembly: AssemblyProduct("OopFactory.X12.Tests.Unit")]
+[assembly: AssemblyProduct("X12.Tests.Unit")]
 [assembly: AssemblyCopyright("Copyright © Hewlett-Packard 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

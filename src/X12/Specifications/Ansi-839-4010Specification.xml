@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--839 Project Cost Reporting-->
 <TransactionSpecification TransactionSetIdentifierCode="839" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BCS" Usage="Required" Repeat="1" />

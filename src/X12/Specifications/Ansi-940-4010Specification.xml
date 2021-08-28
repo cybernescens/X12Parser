@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--940 Warehouse Shipping Order-->
 <TransactionSpecification TransactionSetIdentifierCode="940" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="W05" Usage="Required" Repeat="1" />
@@ -21,8 +22,8 @@
   <Segment SegmentId="BNX" Repeat="1" />
   <Loop LoopId="0150">
     <Name></Name>
-    <StartingSegment SegmentId="TD3"/>
-    <Segment SegmentId="AT9"/>
+    <StartingSegment SegmentId="TD3" />
+    <Segment SegmentId="AT9" />
   </Loop>
   <Loop LoopId="0200" LoopRepeat="10">
     <Name>Code Source Information</Name>
@@ -36,7 +37,7 @@
     <Segment SegmentId="SDQ" />
     <Segment SegmentId="N1" Repeat="1" />
     <Segment SegmentId="G62" Repeat="10" />
-    <Segment SegmentId="N9"/>
+    <Segment SegmentId="N9" />
     <Loop LoopId="0310">
       <Name>Line Item Detail - Warehouse</Name>
       <StartingSegment SegmentId="W01" />
@@ -54,11 +55,11 @@
       <Segment SegmentId="LH6" Repeat="5" />
       <Loop LoopId="N1">
         <Name></Name>
-        <StartingSegment SegmentId="N1"/>
-        <Segment SegmentId="N2"/>
-        <Segment SegmentId="N3"/>
-        <Segment SegmentId="N4"/>
-        <Segment SegmentId="PER"/>
+        <StartingSegment SegmentId="N1" />
+        <Segment SegmentId="N2" />
+        <Segment SegmentId="N3" />
+        <Segment SegmentId="N4" />
+        <Segment SegmentId="PER" />
       </Loop>
 
       <Loop LoopId="0320" LoopRepeat="10">

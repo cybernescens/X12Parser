@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--490 Rate Group Definition-->
 <TransactionSpecification TransactionSetIdentifierCode="490" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="REN" Usage="Required" Repeat="1" />

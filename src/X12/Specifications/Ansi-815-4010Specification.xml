@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--815 Cryptographic Service Message-->
 <TransactionSpecification TransactionSetIdentifierCode="815" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="CSM" Usage="Required" Repeat="1" />

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--828 Debit Authorization-->
 <TransactionSpecification TransactionSetIdentifierCode="828" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BAU" Usage="Required" Repeat="1" />

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--885 Retail Account Characteristics-->
 <TransactionSpecification TransactionSetIdentifierCode="885" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="N1" Usage="Required" Repeat="3" />

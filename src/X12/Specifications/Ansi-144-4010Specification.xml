@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--144 Student Loan Transfer and Status Verification-->
 <TransactionSpecification TransactionSetIdentifierCode="144" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />

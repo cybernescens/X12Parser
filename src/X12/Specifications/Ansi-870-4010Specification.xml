@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--870 Order Status Report-->
 <TransactionSpecification TransactionSetIdentifierCode="870" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BSR" Usage="Required" Repeat="1" />

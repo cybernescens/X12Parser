@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--277 Health Care Claim Status Notification-->
 <TransactionSpecification TransactionSetIdentifierCode="277" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BHT" Usage="Required" Repeat="1" />

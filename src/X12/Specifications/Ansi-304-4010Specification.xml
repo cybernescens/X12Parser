@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--304 Shipping Instructions-->
 <TransactionSpecification TransactionSetIdentifierCode="304" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="B2" Usage="Required" Repeat="1" />

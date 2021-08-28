@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--149 Notice of Tax Adjustment or Assessment-->
 <TransactionSpecification TransactionSetIdentifierCode="149" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />

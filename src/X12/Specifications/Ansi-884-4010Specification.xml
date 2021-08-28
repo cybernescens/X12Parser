@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--884 Market Development Fund Settlement-->
 <TransactionSpecification TransactionSetIdentifierCode="884" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BMP" Usage="Required" Repeat="1" />

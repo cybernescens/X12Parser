@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--410 Rail Carrier Freight Details and Invoice-->
 <TransactionSpecification TransactionSetIdentifierCode="410" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="B3B" Usage="Required" Repeat="1" />

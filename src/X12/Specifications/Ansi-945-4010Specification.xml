@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--945 Warehouse Shipping Advice-->
 <TransactionSpecification TransactionSetIdentifierCode="945" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="W06" Usage="Required" Repeat="1" />

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--317 Delivery/Pickup Order-->
 <TransactionSpecification TransactionSetIdentifierCode="317" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Loop LoopId="N1" LoopRepeat="10">

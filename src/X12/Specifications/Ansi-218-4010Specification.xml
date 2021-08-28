@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--218 Motor Carrier Tariff Information-->
 <TransactionSpecification TransactionSetIdentifierCode="218" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="TF" Usage="Required" Repeat="1" />

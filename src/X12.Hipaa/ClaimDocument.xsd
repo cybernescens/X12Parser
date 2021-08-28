@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://www.oopfactory.com/2011/XSL/Hipaa" elementFormDefault="qualified" targetNamespace="http://www.oopfactory.com/2011/XSL/Hipaa" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:schema xmlns:tns="http://www.oopfactory.com/2011/XSL/Hipaa" elementFormDefault="qualified"
+           targetNamespace="http://www.oopfactory.com/2011/XSL/Hipaa" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="ClaimDocument" nillable="true" type="tns:ClaimDocument" />
   <xs:complexType name="ClaimDocument">
     <xs:sequence>
@@ -18,7 +20,8 @@
       <xs:element minOccurs="0" maxOccurs="1" name="Subscriber" type="tns:ClaimMember" />
       <xs:element minOccurs="0" maxOccurs="1" name="Payer" type="tns:Entity" />
       <xs:element minOccurs="0" maxOccurs="1" name="Patient" type="tns:ClaimMember" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="OtherSubscriberInformation" type="tns:OtherSubscriberInformation" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OtherSubscriberInformation"
+                  type="tns:OtherSubscriberInformation" />
       <xs:element minOccurs="0" maxOccurs="1" name="AdmissionType" type="tns:Lookup" />
       <xs:element minOccurs="0" maxOccurs="1" name="AdmissionSource" type="tns:Lookup" />
       <xs:element minOccurs="0" maxOccurs="1" name="PatientStatus" type="tns:Lookup" />
@@ -301,7 +304,8 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DateRange" type="tns:QualifiedDateRange" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Note" type="tns:Lookup" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Provider" type="tns:Provider" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="LineAdjustmentInformation" type="tns:LineAdjustmentInformation" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LineAdjustmentInformation"
+                  type="tns:LineAdjustmentInformation" />
     </xs:sequence>
     <xs:attribute name="LineNumber" type="xs:int" use="required" />
     <xs:attribute name="RevenueCode" type="xs:string" />

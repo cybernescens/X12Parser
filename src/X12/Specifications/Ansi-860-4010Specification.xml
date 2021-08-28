@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--860 Purchase Order Change Request - Buyer Initiated-->
 <TransactionSpecification TransactionSetIdentifierCode="860" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BCH" Usage="Required" Repeat="1" />
   <Segment SegmentId="CUR" Repeat="1" />
   <Segment SegmentId="REF" />
-  <Segment SegmentId="EFI"/>
+  <Segment SegmentId="EFI" />
   <Segment SegmentId="PER" Repeat="3" />
   <Segment SegmentId="TAX" />
   <Segment SegmentId="FOB" />

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net50</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="2.2.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\X12\X12.csproj" />
+  </ItemGroup>
+</Project>

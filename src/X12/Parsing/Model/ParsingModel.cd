@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="OopFactory.X12.Parsing.Model.Segment">
+  <Class Name="X12.Parsing.Model.Segment">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <Members>
       <Property Name="_dataElements" Hidden="true" />
@@ -24,7 +24,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="OopFactory.X12.Parsing.Model.Container">
+  <Class Name="X12.Parsing.Model.Container">
     <Position X="4.75" Y="0.75" Width="1.5" />
     <Members>
       <Field Name="_segments" Hidden="true" />
@@ -47,7 +47,7 @@
       <FileName>Parsing\Model\Container.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OopFactory.X12.Parsing.Model.Interchange">
+  <Class Name="X12.Parsing.Model.Interchange">
     <Position X="1.75" Y="3.5" Width="2.5" />
     <Members>
       <Field Name="_functionGroups" Hidden="true" />
@@ -66,7 +66,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="OopFactory.X12.Parsing.Model.FunctionGroup">
+  <Class Name="X12.Parsing.Model.FunctionGroup">
     <Position X="4.5" Y="3.75" Width="2.25" />
     <Members>
       <Field Name="_specFinder" Hidden="true" />
@@ -83,7 +83,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="OopFactory.X12.Parsing.Model.LoopContainer">
+  <Class Name="X12.Parsing.Model.LoopContainer">
     <Position X="7.75" Y="0.75" Width="1.5" />
     <Members>
       <Field Name="_loops" Hidden="true" />
@@ -99,7 +99,7 @@
       <FileName>Parsing\Model\LoopContainer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OopFactory.X12.Parsing.Model.HierarchicalLoopContainer">
+  <Class Name="X12.Parsing.Model.HierarchicalLoopContainer">
     <Position X="7.5" Y="2.75" Width="2" />
     <Members>
       <Field Name="_hLoops" Hidden="true" />
@@ -114,7 +114,7 @@
       <FileName>Parsing\Model\HierarchicalLoopContainer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OopFactory.X12.Parsing.Model.HierarchicalLoop">
+  <Class Name="X12.Parsing.Model.HierarchicalLoop">
     <Position X="10" Y="5" Width="1.75" />
     <Members>
       <Property Name="AllowedChildLoops" Hidden="true" />
@@ -128,7 +128,7 @@
       <FileName>Parsing\Model\HierarchicalLoop.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OopFactory.X12.Parsing.Model.Transaction">
+  <Class Name="X12.Parsing.Model.Transaction">
     <Position X="7.25" Y="5" Width="1.75" />
     <Members>
       <Field Name="_allHLoops" Hidden="true" />
@@ -147,7 +147,7 @@
       <FileName>Parsing\Model\Transaction.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OopFactory.X12.Parsing.Model.Loop">
+  <Class Name="X12.Parsing.Model.Loop">
     <Position X="10" Y="0.75" Width="2" />
     <Members>
       <Property Name="AllowedChildLoops" Hidden="true" />

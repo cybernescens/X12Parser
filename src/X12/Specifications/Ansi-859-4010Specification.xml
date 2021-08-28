@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--859 Freight Invoice-->
 <TransactionSpecification TransactionSetIdentifierCode="859" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="B3" Usage="Required" Repeat="1" />

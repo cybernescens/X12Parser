@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--826 Tax Information Exchange-->
 <TransactionSpecification TransactionSetIdentifierCode="826" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BTI" Usage="Required" Repeat="1" />

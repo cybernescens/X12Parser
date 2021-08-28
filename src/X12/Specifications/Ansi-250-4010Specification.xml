@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--250 Purchase Order Shipment Management Document-->
 <TransactionSpecification TransactionSetIdentifierCode="250" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" Usage="Required" Repeat="1" />

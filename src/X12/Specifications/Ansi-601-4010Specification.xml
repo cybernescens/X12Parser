@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--601 U.S. Customs Export Shipment Information-->
 <TransactionSpecification TransactionSetIdentifierCode="601" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Loop LoopId="BA1" LoopRepeat="999">

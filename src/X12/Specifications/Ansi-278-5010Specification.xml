@@ -1,76 +1,77 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<TransactionSpecification xmlns="http://tempuri.org/X12ParserSpecification.xsd"  TransactionSetIdentifierCode="278">
-  <Segment SegmentId="BHT"/>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<TransactionSpecification xmlns="http://tempuri.org/X12ParserSpecification.xsd" TransactionSetIdentifierCode="278">
+  <Segment SegmentId="BHT" />
   <HierarchicalLoop LoopId="2000A" LevelCode="20">
     <Name>Utilization Management Organization (UMO) Detail</Name>
-    <Segment SegmentId="AAA"/>
+    <Segment SegmentId="AAA" />
     <Loop LoopId="2010A">
       <Name>Utilization Management Organization (UMO) Name</Name>
-      <StartingSegment SegmentId="NM1"/>
-      <Segment SegmentId="PER"/>
-      <Segment SegmentId="AAA"/>
+      <StartingSegment SegmentId="NM1" />
+      <Segment SegmentId="PER" />
+      <Segment SegmentId="AAA" />
     </Loop>
   </HierarchicalLoop>
   <HierarchicalLoop LoopId="2000B" LevelCode="21">
     <Name>Requester Detail</Name>
-    <Segment SegmentId="PWK"/>
+    <Segment SegmentId="PWK" />
     <Loop LoopId="2010B">
       <Name>Requester Name</Name>
-      <StartingSegment SegmentId="NM1"/>
-      <Segment SegmentId="REF"/>
-      <Segment SegmentId="N3"/>
-      <Segment SegmentId="N4"/>
-      <Segment SegmentId="PER"/>
-      <Segment SegmentId="PRV"/>
-      <Segment SegmentId="AAA"/>
+      <StartingSegment SegmentId="NM1" />
+      <Segment SegmentId="REF" />
+      <Segment SegmentId="N3" />
+      <Segment SegmentId="N4" />
+      <Segment SegmentId="PER" />
+      <Segment SegmentId="PRV" />
+      <Segment SegmentId="AAA" />
     </Loop>
   </HierarchicalLoop>
   <HierarchicalLoop LoopId="2000C" LevelCode="22">
     <Name>Subscriber Detail</Name>
-    <Segment SegmentId="PWK"/>
+    <Segment SegmentId="PWK" />
     <Loop LoopId="2010C">
       <Name>Subscriber Name</Name>
-      <StartingSegment SegmentId="NM1"/>
-      <Segment SegmentId="REF"/>
-      <Segment SegmentId="N3"/>
-      <Segment SegmentId="N4"/>
-      <Segment SegmentId="AAA"/>
-      <Segment SegmentId="DMG"/>
-      <Segment SegmentId="INS"/>
+      <StartingSegment SegmentId="NM1" />
+      <Segment SegmentId="REF" />
+      <Segment SegmentId="N3" />
+      <Segment SegmentId="N4" />
+      <Segment SegmentId="AAA" />
+      <Segment SegmentId="DMG" />
+      <Segment SegmentId="INS" />
     </Loop>
   </HierarchicalLoop>
   <HierarchicalLoop LoopId="2000D" LevelCode="23">
     <Name>Dependent Detail</Name>
-    <Segment SegmentId="PWK"/>
+    <Segment SegmentId="PWK" />
     <Loop LoopId="2010D">
       <Name>Dependent Name</Name>
-      <StartingSegment SegmentId="NM1"/>
-      <Segment SegmentId="REF"/>
-      <Segment SegmentId="N3"/>
-      <Segment SegmentId="N4"/>
-      <Segment SegmentId="AAA"/>
-      <Segment SegmentId="DMG"/>
-      <Segment SegmentId="INS"/>
+      <StartingSegment SegmentId="NM1" />
+      <Segment SegmentId="REF" />
+      <Segment SegmentId="N3" />
+      <Segment SegmentId="N4" />
+      <Segment SegmentId="AAA" />
+      <Segment SegmentId="DMG" />
+      <Segment SegmentId="INS" />
     </Loop>
   </HierarchicalLoop>
   <HierarchicalLoop LoopId="2000E" LevelCode="EV">
     <Name>Patient Event Detail</Name>
-    <Segment SegmentId="TRN"/>
-    <Segment SegmentId="AAA"/>
-    <Segment SegmentId="UM"/>
-    <Segment SegmentId="HCR"/>
-    <Segment SegmentId="REF"/>
-    <Segment SegmentId="DTP"/>
-    <Segment SegmentId="HI"/>
-    <Segment SegmentId="HSD"/>
-    <Segment SegmentId="CRC"/>
-    <Segment SegmentId="CL1"/>
-    <Segment SegmentId="CR1"/>
-    <Segment SegmentId="CR2"/>
-    <Segment SegmentId="CR5"/>
-    <Segment SegmentId="CR6"/>
-    <Segment SegmentId="PWK"/>
-    <Segment SegmentId="MSG"/>
+    <Segment SegmentId="TRN" />
+    <Segment SegmentId="AAA" />
+    <Segment SegmentId="UM" />
+    <Segment SegmentId="HCR" />
+    <Segment SegmentId="REF" />
+    <Segment SegmentId="DTP" />
+    <Segment SegmentId="HI" />
+    <Segment SegmentId="HSD" />
+    <Segment SegmentId="CRC" />
+    <Segment SegmentId="CL1" />
+    <Segment SegmentId="CR1" />
+    <Segment SegmentId="CR2" />
+    <Segment SegmentId="CR5" />
+    <Segment SegmentId="CR6" />
+    <Segment SegmentId="PWK" />
+    <Segment SegmentId="MSG" />
     <Loop LoopId="2010EA">
       <Name>Patient Event Provider Name</Name>
       <StartingSegment SegmentId="NM1">
@@ -89,12 +90,12 @@
         <EntityIdentifier Code="QV">Group Practice</EntityIdentifier>
         <EntityIdentifier Code="SJ">Service Provider</EntityIdentifier>
       </StartingSegment>
-      <Segment SegmentId="REF"/>
-      <Segment SegmentId="N3"/>
-      <Segment SegmentId="N4"/>
-      <Segment SegmentId="PER"/>
-      <Segment SegmentId="AAA"/>
-      <Segment SegmentId="PRV"/>
+      <Segment SegmentId="REF" />
+      <Segment SegmentId="N3" />
+      <Segment SegmentId="N4" />
+      <Segment SegmentId="PER" />
+      <Segment SegmentId="AAA" />
+      <Segment SegmentId="PRV" />
     </Loop>
     <Loop LoopId="2010EB">
       <Name>Patient Event Transport Information</Name>
@@ -105,8 +106,8 @@
         <EntityIdentifier Code="PW">Pickup Address</EntityIdentifier>
         <EntityIdentifier Code="R3">Next Scheduled Destination</EntityIdentifier>
       </StartingSegment>
-      <Segment SegmentId="N3"/>
-      <Segment SegmentId="N4"/>
+      <Segment SegmentId="N3" />
+      <Segment SegmentId="N4" />
     </Loop>
     <Loop LoopId="2010EC">
       <Name>Patient Event Other UMO Name</Name>
@@ -115,37 +116,37 @@
         <EntityIdentifier Code="CA">Carrier</EntityIdentifier>
         <EntityIdentifier Code="GG">Intermediary</EntityIdentifier>
       </StartingSegment>
-      <Segment SegmentId="REF"/>
-      <Segment SegmentId="DTP"/>
-      <Segment SegmentId="N3"/>
-      <Segment SegmentId="N4"/>
-      <Segment SegmentId="AAA"/>
+      <Segment SegmentId="REF" />
+      <Segment SegmentId="DTP" />
+      <Segment SegmentId="N3" />
+      <Segment SegmentId="N4" />
+      <Segment SegmentId="AAA" />
     </Loop>
   </HierarchicalLoop>
   <HierarchicalLoop LoopId="2000F" LevelCode="SS">
     <Name>Service Detail</Name>
-    <Segment SegmentId="TRN"/>
-    <Segment SegmentId="AAA"/>
-    <Segment SegmentId="UM"/>
-    <Segment SegmentId="HCR"/>
-    <Segment SegmentId="REF"/>
-    <Segment SegmentId="DTP"/>
-    <Segment SegmentId="HI"/>
-    <Segment SegmentId="SV1"/>
-    <Segment SegmentId="SV2"/>
-    <Segment SegmentId="SV3"/>
-    <Segment SegmentId="TOO"/>
-    <Segment SegmentId="HSD"/>
-    <Segment SegmentId="PWK"/>
-    <Segment SegmentId="MSG"/>
+    <Segment SegmentId="TRN" />
+    <Segment SegmentId="AAA" />
+    <Segment SegmentId="UM" />
+    <Segment SegmentId="HCR" />
+    <Segment SegmentId="REF" />
+    <Segment SegmentId="DTP" />
+    <Segment SegmentId="HI" />
+    <Segment SegmentId="SV1" />
+    <Segment SegmentId="SV2" />
+    <Segment SegmentId="SV3" />
+    <Segment SegmentId="TOO" />
+    <Segment SegmentId="HSD" />
+    <Segment SegmentId="PWK" />
+    <Segment SegmentId="MSG" />
     <Loop LoopId="2010F">
       <Name>Service Provider Name</Name>
-      <StartingSegment SegmentId="NM1"/>
-      <Segment SegmentId="REF"/>
-      <Segment SegmentId="N3"/>
-      <Segment SegmentId="N4"/>
-      <Segment SegmentId="PER"/>
-      <Segment SegmentId="PRV"/>
+      <StartingSegment SegmentId="NM1" />
+      <Segment SegmentId="REF" />
+      <Segment SegmentId="N3" />
+      <Segment SegmentId="N4" />
+      <Segment SegmentId="PER" />
+      <Segment SegmentId="PRV" />
     </Loop>
   </HierarchicalLoop>
 </TransactionSpecification>

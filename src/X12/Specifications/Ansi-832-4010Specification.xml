@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--832 Price/Sales Catalog-->
 <TransactionSpecification TransactionSetIdentifierCode="832" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BCT" Usage="Required" Repeat="1" />

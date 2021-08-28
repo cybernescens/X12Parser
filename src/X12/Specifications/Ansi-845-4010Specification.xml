@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--845 Price Authorization Acknowledgment/Status-->
 <TransactionSpecification TransactionSetIdentifierCode="845" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BPA" Usage="Required" Repeat="1" />

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--273 Insurance/Annuity Application Status-->
 <TransactionSpecification TransactionSetIdentifierCode="273" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" Usage="Required" Repeat="1" />

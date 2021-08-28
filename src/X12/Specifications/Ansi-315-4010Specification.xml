@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--315 Status Details (Ocean)-->
 <TransactionSpecification TransactionSetIdentifierCode="315" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="B4" Usage="Required" Repeat="1" />

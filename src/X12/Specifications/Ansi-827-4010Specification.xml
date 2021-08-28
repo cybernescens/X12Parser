@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--827 Financial Return Notice-->
 <TransactionSpecification TransactionSetIdentifierCode="827" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="RIC" Usage="Required" Repeat="1" />

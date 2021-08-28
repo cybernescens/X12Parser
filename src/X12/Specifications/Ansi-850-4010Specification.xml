@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--850 Purchase Order-->
 <TransactionSpecification TransactionSetIdentifierCode="850" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BEG" Usage="Required" Repeat="1" />
@@ -35,10 +36,10 @@
   <Segment SegmentId="PCT" />
   <Segment SegmentId="CTB" Repeat="5" />
   <Segment SegmentId="TXI" />
-  <Segment SegmentId="MSG"/>
+  <Segment SegmentId="MSG" />
   <Loop LoopId="SAC" LoopRepeat="25">
     <Name>Service, Promotion, Allowance, or Charge Information</Name>
-    <StartingSegment SegmentId="SAC"/>
+    <StartingSegment SegmentId="SAC" />
   </Loop>
   <Loop LoopId="AMT">
     <Name>Monetary Amount</Name>
@@ -131,7 +132,7 @@
       <Name>Product/Item Description</Name>
       <StartingSegment SegmentId="PID" />
       <Segment SegmentId="MEA" Repeat="10" />
-      <Segment SegmentId="REF"/>
+      <Segment SegmentId="REF" />
     </Loop>
     <Segment SegmentId="PWK" Repeat="25" />
     <Segment SegmentId="PO4" />

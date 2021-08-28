@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--267 Individual Life, Annuity and Disability Application-->
 <TransactionSpecification TransactionSetIdentifierCode="267" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" Usage="Required" Repeat="1" />
@@ -13,12 +14,12 @@
   </Loop>
   <Loop LoopId="N1">
     <Name>Party Identification</Name>
-    <StartingSegment SegmentId="N1"/>
-    <Segment SegmentId="N2"/>
-    <Segment SegmentId="N3"/>
-    <Segment SegmentId="N4"/>
-    <Segment SegmentId="N9"/>
-    <Segment SegmentId="DTM"/>
+    <StartingSegment SegmentId="N1" />
+    <Segment SegmentId="N2" />
+    <Segment SegmentId="N3" />
+    <Segment SegmentId="N4" />
+    <Segment SegmentId="N9" />
+    <Segment SegmentId="DTM" />
     <Loop LoopId="ACT">
       <Name>Account Identification</Name>
       <StartingSegment SegmentId="ACT" />
@@ -36,9 +37,9 @@
       <Segment SegmentId="REF" />
       <Loop LoopId="LQ">
         <Name>Industry Code Identification</Name>
-        <StartingSegment SegmentId="LQ"/>
-        <Segment SegmentId="N4"/>
-        <Segment SegmentId="LUI"/>
+        <StartingSegment SegmentId="LQ" />
+        <Segment SegmentId="N4" />
+        <Segment SegmentId="LUI" />
       </Loop>
       <Loop LoopId="SI">
         <Name>Service Characteristic Identification</Name>
@@ -94,9 +95,9 @@
         <Segment SegmentId="LIN" Repeat="9" />
         <Segment SegmentId="DMG" Repeat="1" />
         <Segment SegmentId="DMA" Repeat="1" />
-        <Segment SegmentId="IND"/>
+        <Segment SegmentId="IND" />
         <Segment SegmentId="LUI" Repeat="1" />
-        <Segment SegmentId="ERI"/>
+        <Segment SegmentId="ERI" />
         <Segment SegmentId="DTP" />
         <Segment SegmentId="AM1" />
         <Segment SegmentId="RPA" />
@@ -250,8 +251,8 @@
           <Segment SegmentId="REF" />
           <Loop LoopId="LS">
             <Name>Loop</Name>
-            <StartingSegment SegmentId="LS"/>
-            <Segment SegmentId="LE" Trailer="true"/>
+            <StartingSegment SegmentId="LS" />
+            <Segment SegmentId="LE" Trailer="true" />
             <Loop LoopId="AMT">
               <Name>Monetary Amount</Name>
               <StartingSegment SegmentId="AMT" />
@@ -264,13 +265,13 @@
               <Segment SegmentId="MSG" />
               <Loop LoopId="AM1">
                 <Name>Information Values</Name>
-                <StartingSegment SegmentId="AM1"/>
+                <StartingSegment SegmentId="AM1" />
                 <Loop LoopId="INV">
                   <Name>Investment Vehicle Selection</Name>
-                  <StartingSegment SegmentId="INV"/>
-                  <Segment SegmentId="QTY"/>
-                  <Segment SegmentId="DTP"/>
-                  <Segment SegmentId="RPA"/>
+                  <StartingSegment SegmentId="INV" />
+                  <Segment SegmentId="QTY" />
+                  <Segment SegmentId="DTP" />
+                  <Segment SegmentId="RPA" />
                 </Loop>
               </Loop>
             </Loop>

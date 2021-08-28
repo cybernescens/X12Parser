@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--148 Report of Injury, Illness or Incident-->
 <TransactionSpecification TransactionSetIdentifierCode="148" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />
   <Segment SegmentId="CUR" />
   <Segment SegmentId="QTY" />
   <Segment SegmentId="REF" />
-  <Segment SegmentId="GRI" Trailer="true"/>
+  <Segment SegmentId="GRI" Trailer="true" />
   <Loop LoopId="LX">
     <Name>Assigned Number</Name>
     <StartingSegment SegmentId="LX" />
@@ -32,7 +33,7 @@
         Contractholder Branch Office (CB), Claimant (CL), Cause of Injury (CI), Source 
         of Injury (SI), Body Part (BP), Nature of Injury (NI), and Payment Detail (PY). 
         All levels are optional.-->
-    <Name/>
+    <Name />
     <Segment SegmentId="CRI" />
     <Segment SegmentId="ACT" />
     <Segment SegmentId="DTP" />
@@ -62,8 +63,8 @@
     <Loop LoopId="ESI">
       <Name>Employment Status Information</Name>
       <StartingSegment SegmentId="ESI" />
-      <Segment SegmentId="EMT"/>
-      <Segment SegmentId="TPB"/>
+      <Segment SegmentId="EMT" />
+      <Segment SegmentId="TPB" />
       <Segment SegmentId="DTP" />
       <Segment SegmentId="REF" />
       <Segment SegmentId="QTY" />
@@ -82,9 +83,9 @@
       </Loop>
       <!-- From Current -->
       <Loop LoopId="LX">
-        <Name/>
-        <StartingSegment SegmentId="LX"/>
-        <Segment SegmentId="AIN"/>
+        <Name />
+        <StartingSegment SegmentId="LX" />
+        <Segment SegmentId="AIN" />
         <Segment SegmentId="CUR" />
         <Segment SegmentId="TXI" />
         <Segment SegmentId="WS" />
@@ -168,8 +169,8 @@
     <!-- From Current -->
     <Loop LoopId="LS">
       <Name></Name>
-      <StartingSegment SegmentId="LS"/>
-      <Segment SegmentId="LE" Trailer="true"/>
+      <StartingSegment SegmentId="LS" />
+      <Segment SegmentId="LE" Trailer="true" />
       <Loop LoopId="III">
         <Name>Information</Name>
         <StartingSegment SegmentId="III" />
@@ -199,15 +200,15 @@
       </Loop>
     </Loop>
     <Loop LoopId="CFI">
-      <Name/>
-      <StartingSegment SegmentId="CFI"/>
-      <Segment SegmentId="CUR"/>
-      <Segment SegmentId="AMT"/>
-      <Segment SegmentId="DTP"/>
-      <Segment SegmentId="QTY"/>
-      <Segment SegmentId="REL"/>
-      <Segment SegmentId="REF"/>
-      <Segment SegmentId="CRC"/>
+      <Name />
+      <StartingSegment SegmentId="CFI" />
+      <Segment SegmentId="CUR" />
+      <Segment SegmentId="AMT" />
+      <Segment SegmentId="DTP" />
+      <Segment SegmentId="QTY" />
+      <Segment SegmentId="REL" />
+      <Segment SegmentId="REF" />
+      <Segment SegmentId="CRC" />
       <Loop LoopId="AD1">
         <Name>Adjustment Amount</Name>
         <StartingSegment SegmentId="AD1" />

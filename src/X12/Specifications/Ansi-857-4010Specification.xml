@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--857 Shipment and Billing Notice-->
 <TransactionSpecification TransactionSetIdentifierCode="857" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BHT" Usage="Required" Repeat="1" />
-  <Segment SegmentId="BCHB"/>
+  <Segment SegmentId="BCHB" />
   <HierarchicalLoop LoopId="HL">
     <Name>Hierarchical Level</Name>
     <Loop LoopId="BS1" LoopRepeat="1">
@@ -41,8 +42,8 @@
       <Segment SegmentId="SN1" Repeat="1" />
       <Segment SegmentId="ISS" Repeat="1" />
       <Loop LoopId="ITA">
-        <StartingSegment SegmentId="ITA"/>
-        <Segment SegmentId="N1"/>
+        <StartingSegment SegmentId="ITA" />
+        <Segment SegmentId="N1" />
       </Loop>
       <Loop LoopId="SAC" LoopRepeat="25">
         <Name>Service, Promotion, Allowance, or Charg</Name>
@@ -92,8 +93,8 @@
       <Segment SegmentId="DTM" Repeat="10" />
       <Segment SegmentId="ITD" />
       <Loop LoopId="ITA">
-        <StartingSegment SegmentId="ITA"/>
-        <Segment SegmentId="N1"/>
+        <StartingSegment SegmentId="ITA" />
+        <Segment SegmentId="N1" />
       </Loop>
       <Loop LoopId="PID" LoopRepeat="25">
         <Name>Product/Item Description</Name>

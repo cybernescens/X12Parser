@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--805 Contract Pricing Proposal-->
 <TransactionSpecification TransactionSetIdentifierCode="805" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BCP" Usage="Required" Repeat="1" />

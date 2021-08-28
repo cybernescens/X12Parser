@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--223 Consolidators Freight Bill and Invoice-->
 <TransactionSpecification TransactionSetIdentifierCode="223" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="B3A" Usage="Required" Repeat="1" />

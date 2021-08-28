@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--147 Response to Request for Student Educational Record (Transcript)-->
 <TransactionSpecification TransactionSetIdentifierCode="147" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />

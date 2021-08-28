@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--126 Vehicle Application Advice-->
 <TransactionSpecification TransactionSetIdentifierCode="126" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Loop LoopId="BVA" LoopRepeat="99">

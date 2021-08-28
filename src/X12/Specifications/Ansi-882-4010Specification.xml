@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--882 Direct Store Delivery Summary Information-->
 <TransactionSpecification TransactionSetIdentifierCode="882" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="G47" Usage="Required" Repeat="1" />

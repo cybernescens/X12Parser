@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--880 Grocery Products Invoice-->
 <TransactionSpecification TransactionSetIdentifierCode="880" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="G01" Usage="Required" Repeat="1" />

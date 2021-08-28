@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--824 Application Advice-->
 <TransactionSpecification TransactionSetIdentifierCode="824" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" Usage="Required" Repeat="1" />
@@ -19,13 +20,13 @@
     <Segment SegmentId="PER" Repeat="3" />
     <Segment SegmentId="AMT" />
     <Segment SegmentId="QTY" />
-    <Segment SegmentId="C001"/>
-    <Segment SegmentId="N1"/>
+    <Segment SegmentId="C001" />
+    <Segment SegmentId="N1" />
     <Segment SegmentId="NM1" Repeat="9" />
     <Loop LoopId="TED">
       <Name>Technical Error Description</Name>
       <StartingSegment SegmentId="TED" />
-      <Segment SegmentId="CTX"/>
+      <Segment SegmentId="CTX" />
       <Segment SegmentId="NTE" Repeat="100" />
       <Segment SegmentId="RED" Repeat="100" />
     </Loop>

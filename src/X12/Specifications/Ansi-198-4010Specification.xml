@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--198 Loan Verification Information-->
 <TransactionSpecification TransactionSetIdentifierCode="198" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />
@@ -67,7 +68,7 @@
             <Segment SegmentId="AMT" /> <!-- 4010 only -->
             <Loop LoopId="DTP">
               <Name>Date or Time or Period</Name>
-              <StartingSegment SegmentId="DTP"/>
+              <StartingSegment SegmentId="DTP" />
               <Segment SegmentId="AMT" />
             </Loop>
           </Loop>

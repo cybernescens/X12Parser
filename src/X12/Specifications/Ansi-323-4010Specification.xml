@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--323 Vessel Schedule and Itinerary (Ocean)-->
 <TransactionSpecification TransactionSetIdentifierCode="323" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="V1" Usage="Required" Repeat="1" />

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--924 Loss or Damage Claim - Motor Vehicle-->
 <TransactionSpecification TransactionSetIdentifierCode="924" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="F01" Usage="Required" Repeat="1" />

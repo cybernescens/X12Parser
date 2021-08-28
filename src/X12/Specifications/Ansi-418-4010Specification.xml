@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--418 Rail Advance Interchange Consist-->
 <TransactionSpecification TransactionSetIdentifierCode="418" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BAX" Usage="Required" Repeat="1" />

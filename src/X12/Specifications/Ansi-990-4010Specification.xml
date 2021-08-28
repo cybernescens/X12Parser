@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--990 Response to a Load Tender-->
 <TransactionSpecification TransactionSetIdentifierCode="990" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="B1" Usage="Required" Repeat="1" />

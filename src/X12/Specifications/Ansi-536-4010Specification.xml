@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--536 Logistics Reassignment-->
 <TransactionSpecification TransactionSetIdentifierCode="536" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BR" Usage="Required" Repeat="1" />

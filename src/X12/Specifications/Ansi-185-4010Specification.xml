@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--185 Royalty Regulatory Report-->
 <TransactionSpecification TransactionSetIdentifierCode="185" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />
@@ -49,8 +50,8 @@
   </Loop>
   <Loop LoopId="LS">
     <Name>Loop Header</Name>
-    <StartingSegment SegmentId="LS"/>
-    <Segment SegmentId="LE" Trailer="true"/>
+    <StartingSegment SegmentId="LS" />
+    <Segment SegmentId="LE" Trailer="true" />
     <Loop LoopId="ASM">
       <Name>Amount and Settlement Method</Name>
       <StartingSegment SegmentId="ASM" />

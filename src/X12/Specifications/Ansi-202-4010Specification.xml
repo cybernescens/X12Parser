@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0"?>
-<TransactionSpecification TransactionSetIdentifierCode="202" FunctionalGroupCode="MJ" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
+
+<TransactionSpecification TransactionSetIdentifierCode="202" FunctionalGroupCode="MJ"
+                          xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Name>Secondary Mortgage Market Loan Delivery</Name>
   <Segment SegmentId="BGN" Repeat="1" />
   <Segment SegmentId="TRN" Repeat="1" />

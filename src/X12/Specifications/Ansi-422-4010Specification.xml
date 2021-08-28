@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--422 Shipper's Car Order-->
 <TransactionSpecification TransactionSetIdentifierCode="422" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BCQ" Usage="Required" Repeat="1" />

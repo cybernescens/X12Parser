@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--863 Report of Test Results-->
 <TransactionSpecification TransactionSetIdentifierCode="863" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BTR" Usage="Required" Repeat="1" />
@@ -28,15 +29,15 @@
     <StartingSegment SegmentId="LIN" />
     <Loop LoopId="PID" Repeat="1000">
       <Name>Product/Item Description</Name>
-      <StartingSegment SegmentId="PID"/>
+      <StartingSegment SegmentId="PID" />
       <Loop LoopId="MEA">
         <Name>Measurements</Name>
-        <StartingSegment SegmentId="MEA"/>
+        <StartingSegment SegmentId="MEA" />
         <Segment SegmentId="DTM" Repeat="10" />
         <Segment SegmentId="REF" Repeat="10" />
-        <Segment SegmentId="CID"/>
-        <Segment SegmentId="PSD"/>
-        <Segment SegmentId="TMD"/>
+        <Segment SegmentId="CID" />
+        <Segment SegmentId="PSD" />
+        <Segment SegmentId="TMD" />
       </Loop>
       <Loop LoopId="TSP">
         <Name>Test Period or Interval</Name>

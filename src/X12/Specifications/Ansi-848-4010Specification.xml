@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--848 Material Safety Data Sheet-->
 <TransactionSpecification TransactionSetIdentifierCode="848" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BMS" Usage="Required" Repeat="1" />

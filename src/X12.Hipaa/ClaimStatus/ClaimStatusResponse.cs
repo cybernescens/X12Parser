@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace OopFactory.X12.Hipaa.ClaimStatus
+namespace X12.Hipaa.ClaimStatus
 {
-    public class ClaimStatusResponse : ClaimStatusBase
+  public class ClaimStatusResponse : ClaimStatusBase
+  {
+    public ClaimStatusResponse()
     {
-        public ClaimStatusResponse()
-        {
-            if (ServiceLineResponses == null) ServiceLineResponses = new List<ClaimStatusServiceLineResponse>();
-        }
-
-        [XmlElement(ElementName="ServiceLineResponse")]
-        public List<ClaimStatusServiceLineResponse> ServiceLineResponses { get; set; }
+      if (ServiceLineResponses == null) ServiceLineResponses = new List<ClaimStatusServiceLineResponse>();
     }
+
+    [XmlElement(ElementName = "ServiceLineResponse")]
+    public List<ClaimStatusServiceLineResponse> ServiceLineResponses { get; set; }
+  }
 }

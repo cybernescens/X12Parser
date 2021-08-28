@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--190 Student Enrollment Verification-->
 <TransactionSpecification TransactionSetIdentifierCode="190" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BGN" />
@@ -10,8 +11,8 @@
   <Segment SegmentId="NTE" />
   <Loop LoopId="AMT">
     <Name>Monetary Amount Information</Name>
-    <StartingSegment SegmentId="AMT"/>
-    <Segment SegmentId="LQ"/>
+    <StartingSegment SegmentId="AMT" />
+    <Segment SegmentId="LQ" />
   </Loop>
   <Loop LoopId="N1">
     <Name>Name</Name>

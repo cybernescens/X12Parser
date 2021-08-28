@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--894 Delivery/Return Base Record-->
 <TransactionSpecification TransactionSetIdentifierCode="894" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="G82" Usage="Required" Repeat="1" />

@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--219 Logistics Service Request-->
 <TransactionSpecification TransactionSetIdentifierCode="219" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="B9" Usage="Required" Repeat="1" />

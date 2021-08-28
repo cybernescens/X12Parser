@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--944 Warehouse Stock Transfer Receipt Advice-->
 <TransactionSpecification TransactionSetIdentifierCode="944" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="W17" Usage="Required" Repeat="1" />

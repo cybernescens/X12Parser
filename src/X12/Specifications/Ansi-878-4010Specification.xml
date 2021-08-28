@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--878 Product Authorization/De-authorization-->
 <TransactionSpecification TransactionSetIdentifierCode="878" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Loop LoopId="0100" LoopRepeat="2">

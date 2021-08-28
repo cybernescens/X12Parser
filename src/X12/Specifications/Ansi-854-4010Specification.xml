@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--854 Shipment Delivery Discrepancy Information-->
 <TransactionSpecification TransactionSetIdentifierCode="854" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="BDD" Usage="Required" Repeat="1" />

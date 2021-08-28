@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <!--879 Price Information-->
 <TransactionSpecification TransactionSetIdentifierCode="879" xmlns="http://tempuri.org/X12ParserSpecification.xsd">
   <Segment SegmentId="G91" Usage="Required" Repeat="1" />
