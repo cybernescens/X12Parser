@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Xml.Serialization;
 
 namespace X12.Parsing.Specification
 {
+  [DebuggerDisplay("{ToString()}")]
   public class ElementSpecification
   {
     public ElementSpecification()
@@ -49,5 +51,7 @@ namespace X12.Parsing.Specification
 
     [XmlElement(ElementName = "Allowed")]
     public List<AllowedIdentifier> AllowedIdentifiers { get; set; }
+
+    public override string ToString() => $"{Reference} - {Name} [{Type}]";
   }
 }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "X12.X12Parser": {
+      "commandName": "Project",
+      "commandLineArgs": "UnbundleX12 *.x12"
+    }
+  }
+}

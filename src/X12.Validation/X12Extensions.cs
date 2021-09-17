@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using X12.Parsing.Model;
-using X12.Parsing.Model.Typed;
+using X12.Model;
 using X12.Validation.Model;
 
 namespace X12.Validation

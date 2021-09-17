@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using X12.Parsing.Model;
+using X12.Model;
 
 namespace X12.Parsing
 {
@@ -44,7 +44,7 @@ namespace X12.Parsing
         sb.AppendFormat("{0}", _segmentTerminator);
       }
 
-      foreach (var segment in loop.Transaction.FunctionGroup.TrailerSegments)
+      foreach (var segment in loop.Group.TrailerSegments)
       {
         sb.Append(segment.SegmentString);
         sb.AppendFormat("{0}", _segmentTerminator);
@@ -84,7 +84,7 @@ namespace X12.Parsing
       else
       {
         var sb = new StringBuilder();
-        sb.Append(container.Transaction.FunctionGroup.SegmentString);
+        sb.Append(container.Group.SegmentString);
         sb.AppendFormat("{0}", _segmentTerminator);
         sb.Append(container.Transaction.SegmentString);
         sb.AppendFormat("{0}", _segmentTerminator);

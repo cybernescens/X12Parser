@@ -1,26 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net50</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
+    <StartupObject>X12.X12Parser.Program</StartupObject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DefineConstants>RELEASE</DefineConstants>
   </PropertyGroup>
  
   <ItemGroup>
+    <ProjectReference Include="..\X12.Persistence.Sql.Mssql\X12.Persistence.Sql.Mssql.csproj" />
+    <ProjectReference Include="..\X12.Validation\X12.Validation.csproj" />
     <ProjectReference Include="..\X12\X12.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="PowerArgs" Version="3.6.0" />
+    <PackageReference Include="Serilog.Enrichers.Demystify" Version="1.0.0-dev-00019" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.3" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
+    <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
   </ItemGroup>
-  <!--<PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)Specifications\*" "$(SolutionDir)Release\Specifications\" /r /y /c /i
-xcopy "$(TargetDir)*.dll" "$(SolutionDir)Release\" /r /y /c /i
-xcopy "$(TargetDir)*.xml" "$(SolutionDir)Release\" /r /y /c /i
-xcopy "$(TargetDir)$(TargetName)$(TargetExt)*" "$(SolutionDir)Release\" /r /y /c /i</PostBuildEvent>
-  </PropertyGroup>-->
   
 </Project>

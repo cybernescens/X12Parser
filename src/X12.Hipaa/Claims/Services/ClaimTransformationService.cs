@@ -3,8 +3,8 @@ using System.IO;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Xsl;
+using X12.Model;
 using X12.Parsing;
-using X12.Parsing.Model;
 
 namespace X12.Hipaa.Claims.Services
 {
@@ -16,7 +16,7 @@ namespace X12.Hipaa.Claims.Services
     public ClaimTransformationService(X12Parser parser) { _parser = parser; }
 
     public ClaimTransformationService()
-      : this(new X12Parser()) { }
+      : this(new X12Parser(ParserSettings.Default)) { }
 
     /// <summary>
     ///   Reads a claim that has been st
@@ -25,7 +25,7 @@ namespace X12.Hipaa.Claims.Services
     /// <returns></returns>
     public ClaimDocument Transform837ToClaimDocument(Stream stream)
     {
-      var interchanges = _parser.ParseMultiple(stream);
+      var interchanges = _parser.Parse(stream);
       var doc = new ClaimDocument();
       foreach (var interchange in interchanges)
       {

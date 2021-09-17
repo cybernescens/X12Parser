@@ -13,6 +13,7 @@ namespace X12.Parsing
     public X12StreamReader(Stream stream, Encoding encoding, char[] ignoredChars)
     {
       _reader = new StreamReader(stream, encoding);
+      _reader.BaseStream.Seek(0, SeekOrigin.Begin);
       var header = new char[106];
       if (_reader.Read(header, 0, 106) < 106)
         throw new ArgumentException("ISA segment and terminator is expected to be at least 106 characters.");

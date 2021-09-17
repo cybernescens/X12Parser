@@ -1,14 +1,28 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net50</TargetFramework>
   </PropertyGroup>
+
+  <!--<ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>X12.Persistence</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>X12.Tests.Persistence.Mssql</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>X12.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>-->
+
   <ItemGroup>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Repositories\**" />
     <None Remove="Specifications\**\*.xml" />
+    <Compile Remove="Repositories\**" />
     <Compile Remove="Specifications\**\*.xml" />
     <EmbeddedResource Include="Specifications\**\*.xml" />
   </ItemGroup>
@@ -18,4 +32,9 @@
     <Compile Remove="Transformations\**\*.xslt" />
     <EmbeddedResource Include="Transformations\**\*.xslt" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Model\Typed*.cs" />
+  </ItemGroup>
+
 </Project>

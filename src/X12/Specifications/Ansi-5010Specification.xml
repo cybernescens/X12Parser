@@ -42697,7 +42697,7 @@
              QualifierSetRef="Claim Filing Indicator Code" />
     <Element Name="Non-Institutional Claim Type Code" Reference="04" Type="ID" MinLength="1" MaxLength="2"
              QualifierSetRef="Non-Institutional Claim Type Code" />
-    <Element Name="Health Care Service Location Information" Reference="05" Type="AN" MinLength="0" MaxLength="0" />
+    <Element Name="Health Care Service Location Information" Reference="05" Type="AN" MinLength="5" MaxLength="7" />
     <Element Name="Yes/No Condition or Response Code" Reference="06" Type="ID" MinLength="1" MaxLength="1"
              QualifierSetRef="Yes/No Condition or Response Code" />
     <Element Name="Provider Accept Assignment Code" Reference="07" Type="ID" MinLength="1" MaxLength="1"

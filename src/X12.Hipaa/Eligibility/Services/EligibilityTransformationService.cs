@@ -12,8 +12,8 @@ namespace X12.Hipaa.Eligibility.Services
     {
       var fullResponse = new EligibilityBenefitDocument();
 
-      var parser = new X12Parser();
-      var interchanges = parser.ParseMultiple(stream);
+      var parser = new X12Parser(ParserSettings.Default);
+      var interchanges = parser.Parse(stream);
       foreach (var interchange in interchanges)
       {
         var xml = interchange.Serialize();

@@ -30,7 +30,7 @@ namespace X12.Hipaa.Claims.Services
       IClaimToClaimFormTransfomation professionalTransformation,
       IClaimToClaimFormTransfomation institutionalTransformation,
       IClaimToClaimFormTransfomation dentalTransformation)
-      : this(professionalTransformation, institutionalTransformation, dentalTransformation, new X12Parser()) { }
+      : this(professionalTransformation, institutionalTransformation, dentalTransformation, new X12Parser(ParserSettings.Default)) { }
 
     public string TransformClaimDocumentToFoXml(ClaimDocument document)
     {

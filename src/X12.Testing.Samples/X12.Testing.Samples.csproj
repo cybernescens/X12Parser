@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="**\*.txt;**\*.x12" />
+    <EmbeddedResource Include="**\*.txt;**\*.x12" />
+  </ItemGroup>
+
+</Project>

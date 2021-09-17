@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net50</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>X12.Tests.Persistence.Mssql</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>X12.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="RepoEntity.cs" />
+    <Compile Remove="RepoEntitySearchCriteria.cs" />
+    <Compile Remove="RepoLoop.cs" />
+    <Compile Remove="RepoLoopSearchCriteria.cs" />
+    <Compile Remove="RepoSegment.cs" />
+    <Compile Remove="RepoTransactionSet.cs" />
+    <Compile Remove="RepoTransactionSetSearchCriteria.cs" />
+    <Compile Remove="SegmentBatchLegacy.cs" />
+    <Compile Remove="SqlReadOnlyTransactionRepository.cs" />
+    <Compile Remove="SqlTransactionRepository.cs" />
+    <Compile Remove="TypeExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\X12\X12.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+  </ItemGroup>
+</Project>

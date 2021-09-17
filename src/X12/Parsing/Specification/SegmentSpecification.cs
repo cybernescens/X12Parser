@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 namespace X12.Parsing.Specification
 {
   [DebuggerStepThrough]
+  [DebuggerDisplay("{ToString()}")]
   [XmlType(AnonymousType = true)]
   public class SegmentSpecification
   {
@@ -41,5 +42,7 @@ namespace X12.Parsing.Specification
 
       return null;
     }
+
+    public override string ToString() => $"{SegmentId} (Elements={Elements.Count})";
   }
 }

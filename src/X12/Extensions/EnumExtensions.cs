@@ -6,29 +6,37 @@ namespace X12.Extensions
 {
   public static class EnumExtensions
   {
-    public static string EDIFieldValue(this Enum enumValue)
+    public static string EdiFieldValue(this Enum enumValue)
     {
-      var attributes = (EDIFieldValueAttribute[]) enumValue.GetType().GetField(enumValue.ToString())
-        .GetCustomAttributes(typeof(EDIFieldValueAttribute), false);
+      enumValue = enumValue ?? throw new ArgumentNullException(nameof(enumValue));
+
+      var attributes = (EdiFieldValueAttribute[])enumValue
+        .GetType()
+        .GetField(enumValue.ToString())
+        .GetCustomAttributes(typeof(EdiFieldValueAttribute), false);
 
       if (attributes.Length > 0)
         return attributes[0].Value;
 
-      throw new InvalidOperationException("No EDIValue Attribute defined for " + enumValue);
+      throw new InvalidOperationException("No EdiValue Attribute defined for " + enumValue);
     }
 
-    public static T ToEnumFromEDIFieldValue<T>(this string itemValue)
+    public static T ToEnumFromEdiFieldValue<T>(this string itemValue)
+      where T : Enum
     {
       var type = typeof(T);
       if (!type.IsEnum)
         throw new InvalidOperationException();
 
-      foreach (var field in
-        from field in type.GetFields()
-        let attributes = (EDIFieldValueAttribute[]) field.GetCustomAttributes(typeof(EDIFieldValueAttribute), false)
-        where attributes.Length > 0 && attributes[0].Value == itemValue
-        select field)
-        return (T) field.GetValue(null);
+      foreach (var field in type.GetFields()
+        .Select(
+          field => new {
+            Field = field,
+            Attributes = (EdiFieldValueAttribute[])field.GetCustomAttributes(typeof(EdiFieldValueAttribute), false)
+          })
+        .Where(t => t.Attributes.Length > 0 && t.Attributes[0].Value == itemValue)
+        .Select(t => t.Field))
+        return (T)field.GetValue(null);
 
       throw new InvalidOperationException("No EDI Field Value found for " + itemValue);
     }

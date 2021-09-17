@@ -2,10 +2,15 @@
 
 namespace X12.Attributes
 {
-  public class EDIFieldValueAttribute : Attribute
+  public class EdiFieldValueAttribute : Attribute
   {
-    public EDIFieldValueAttribute(string value) { Value = value; }
-
+    public EdiFieldValueAttribute(string value) { Value = value; }
     public string Value { get; }
+  }
+
+  [Obsolete("Use EdiFieldValueAttribute")]
+  public class EDIFieldValueAttribute : EdiFieldValueAttribute
+  {
+    public EDIFieldValueAttribute(string value) : base(value) { }
   }
 }

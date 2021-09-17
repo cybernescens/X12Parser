@@ -16,15 +16,15 @@ namespace X12.Transformations
       _parser = parser;
     }
 
-    public X12EdiParsingService(bool suppressComments) : this(suppressComments, new X12Parser()) { }
+    public X12EdiParsingService(bool suppressComments) : this(suppressComments, new X12Parser(ParserSettings.Default)) { }
 
     public X12EdiParsingService(bool suppressComments, ISpecificationFinder specFinder) : this(
       suppressComments,
-      new X12Parser(specFinder, true)) { }
+      new X12Parser(ParserSettings.Default.WithSpecificationFinder(specFinder))) { }
 
     public string Transform(string x12)
     {
-      var interchange = _parser.ParseMultiple(new MemoryStream(Encoding.ASCII.GetBytes(x12))).FirstOrDefault();
+      var interchange = _parser.Parse(new MemoryStream(Encoding.ASCII.GetBytes(x12))).FirstOrDefault();
       return interchange.Serialize(_suppressComments);
     }
   }

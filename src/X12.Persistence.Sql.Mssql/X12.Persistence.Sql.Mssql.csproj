@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Remove="Scripts\**\*.sql" />
+    <Content Remove="Scripts\**\*.sql" />
+    <EmbeddedResource Include="Scripts\**\*.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\X12.Persistence.Sql.Schema\X12.Persistence.Sql.Schema.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dbup-sqlserver" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.33.0" />
+  </ItemGroup>
+</Project>
