@@ -58,7 +58,7 @@ namespace X12.Model
     internal bool AllowsHierarchicalLoop(HierarchicalLoop hl) => !_hierarchicalLoops.Contains(hl);
 
     public override bool AllowsHierarchicalLoop(string levelCode) =>
-      Specification.HierarchicalLoopSpecifications.Exists(
+      Specification.HierarchicalLoopSpecifications.Any(
         hl => hl.LevelCode == levelCode || string.IsNullOrEmpty(hl.LevelCode));
 
     public override HierarchicalLoop AddHLoop(string id, string levelCode, bool? existingHierarchicalLoops)

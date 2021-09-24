@@ -5,7 +5,6 @@ namespace X12.Parsing
   public class DentalClaimSpecificationFinder : SpecificationFinder
   {
     public override TransactionSpecification FindTransactionSpec(
-      string functionalCode,
       string versionCode,
       string transactionSetCode)
     {
@@ -15,7 +14,7 @@ namespace X12.Parsing
         //else
         return GetSpecification("837D-4010");
 
-      return base.FindTransactionSpec(functionalCode, versionCode, transactionSetCode);
+      return base.FindTransactionSpec(versionCode, transactionSetCode);
     }
   }
 }

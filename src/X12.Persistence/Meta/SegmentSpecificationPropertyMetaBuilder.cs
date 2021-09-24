@@ -26,10 +26,11 @@ namespace X12.Persistence.Meta
         specification
           .Elements
           .Select(
-            x => {
+            (x, i) => {
               x.MaxLength = Math.Max(x.MaxLength, DefaultMaxLength);
+              x.Reference ??= (i + 1).ToString().PadLeft(2, '0');
               return x switch {
-                //{ Type: ElementDataTypeEnum.Binary } => new ColumnMetadata(x.Reference, true, new BinarySqlType(), z => ((IndexedSegmentEntity)z).GetBinaryElement(x.Reference)),
+                { Type: ElementDataTypeEnum.Binary } => new BatchPropertyMetadata(x.Reference, true, new BinaryPropertyType(), z => ((IndexedSegmentEntity)z).GetBinaryElement(x.Reference )),
                 { Type: ElementDataTypeEnum.Date } => new BatchPropertyMetadata(x.Reference, true, new DatePropertyType(), z => ((IndexedSegmentEntity)z).GetDateElement(x.Reference)),
                 { Type: ElementDataTypeEnum.Decimal } => new BatchPropertyMetadata(x.Reference, true, new NumericPropertyType(x.MaxLength * 2, x.MaxLength / 2), z => ((IndexedSegmentEntity)z).GetDecimalElement(x.Reference)),
                 { Type: ElementDataTypeEnum.Identifier } => new BatchPropertyMetadata(x.Reference, true, new VarcharPropertyDataType(x.MaxLength), z => ((IndexedSegmentEntity)z).GetElement(x.Reference)),

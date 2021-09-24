@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using DbUp;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -12,6 +13,8 @@ namespace X12.Testing.Persistence.Mssql
 {
   public class RequireDatabaseAttribute : TestActionAttribute
   {
+    private static readonly Regex SpecificationRegex = new(@"\._(?<tsc>\w+)\._(?<v>\d+)\.", RegexOptions.Compiled);
+
     private SqlConnectionStringBuilder _connectionString;
 
     public override void BeforeTest(ITest test)
@@ -22,8 +25,6 @@ namespace X12.Testing.Persistence.Mssql
       if (string.IsNullOrEmpty(fixture.DatabaseName))
         throw new InvalidOperationException($"Must specify {nameof(fixture.DatabaseName)}");
         
-      var now = DateTime.Now;
-
       SetDsn(fixture);
 
       fixture.CurrentPersistenceConfiguration = SchemaGenerationConfiguration.Schema
@@ -31,7 +32,7 @@ namespace X12.Testing.Persistence.Mssql
         .Logging(sb => sb.AddSerilog(Log.Logger))
         .ConnectionManager(MssqlConnectionConfiguration.Default.Using(_connectionString.ConnectionString))
         .IdentityProvider(LongHiLoSequenceIdentityProviderConfiguration.Default)
-        .IndexedSegments(ToSegmentConfiguration(fixture.GenerateSegments, fixture.Segments))
+        .IndexedSegments(ToSegmentConfiguration(test, fixture))
         .ColumnMetaBuilder(PropertyMetaBuilderConfiguration.Default)
         .Options(PersistenceOptionsConfiguration.Default);
         
@@ -63,14 +64,26 @@ namespace X12.Testing.Persistence.Mssql
       fixture.CurrentConnectionString = _connectionString.ConnectionString;
     }
 
-    public IndexedSegmentConfiguration ToSegmentConfiguration(GenerateSegments gs, string segmentsraw = null) =>
-      gs switch {
+    private IndexedSegmentConfiguration IndexedSegmentConfigurationFromName(string name)
+    {
+      var match = SpecificationRegex.Match(name);
+      if (!match.Success)
+        return IndexedSegmentConfiguration.Default;
+
+      var version = match.Groups["v"].Value;
+      var tsc = match.Groups["tsc"].Value;
+      return IndexedSegmentConfiguration.Default.TransactionSet(version, tsc, false);
+    }
+
+    private IndexedSegmentConfiguration ToSegmentConfiguration(ITest test, IRequireDatabase fixture) =>
+      fixture.GenerateSegments switch {
         GenerateSegments.None     => IndexedSegmentConfiguration.Default,
-        GenerateSegments.Property => IndexedSegmentConfiguration.Default.Parse(segmentsraw!),
+        GenerateSegments.Property => IndexedSegmentConfiguration.Default.Parse(fixture.Segments),
         GenerateSegments.X820     => IndexedSegmentConfiguration.X820,
         GenerateSegments.X834     => IndexedSegmentConfiguration.X834,
         GenerateSegments.X837     => IndexedSegmentConfiguration.X837,
-        _                         => throw new ArgumentOutOfRangeException(nameof(gs), gs, null)
+        GenerateSegments.FromName => IndexedSegmentConfigurationFromName(test.Name),
+        _                         => throw new ArgumentOutOfRangeException(nameof(fixture.GenerateSegments), fixture.GenerateSegments, null)
       };
 
     public override ActionTargets Targets => ActionTargets.Test;

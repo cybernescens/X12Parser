@@ -6,6 +6,7 @@
     X820,
     X834,
     X837,
-    Property
+    Property,
+    FromName
   }
 }

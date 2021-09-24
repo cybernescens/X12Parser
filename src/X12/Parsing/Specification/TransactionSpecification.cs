@@ -19,7 +19,7 @@ namespace X12.Parsing.Specification
 
     [XmlElement]
     public string Name { get; set; }
-
+    
     [XmlElement("Segment")]
     public List<SegmentSpecification> SegmentSpecifications { get; set; }
 

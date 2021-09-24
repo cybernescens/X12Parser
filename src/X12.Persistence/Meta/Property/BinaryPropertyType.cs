@@ -2,6 +2,6 @@
 {
   public class BinaryPropertyType : PropertyDataType
   {
-    public override string Render() => $"varbinary";
+    public override string Render() => $"varbinary(max)";
   }
 }

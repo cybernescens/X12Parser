@@ -5,7 +5,6 @@ namespace X12.Parsing
   public class ProfessionalClaimSpecificationFinder : SpecificationFinder
   {
     public override TransactionSpecification FindTransactionSpec(
-      string functionalCode,
       string versionCode,
       string transactionSetCode)
     {
@@ -17,7 +16,7 @@ namespace X12.Parsing
         return GetSpecification("837-4010");
       }
 
-      return base.FindTransactionSpec(functionalCode, versionCode, transactionSetCode);
+      return base.FindTransactionSpec(versionCode, transactionSetCode);
     }
   }
 }

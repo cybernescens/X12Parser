@@ -4,10 +4,10 @@ namespace X12.Persistence.Meta.Property
 {
   public class IntegerPropertyType : PropertyDataType
   {
-    public static IntegerPropertyType Tiny() => new IntegerPropertyType(IntegerType.Tiny);
-    public static IntegerPropertyType Small() => new IntegerPropertyType(IntegerType.Small);
-    public static IntegerPropertyType Regular() => new IntegerPropertyType(IntegerType.Regular);
-    public static IntegerPropertyType Big() => new IntegerPropertyType(IntegerType.Big);
+    public static IntegerPropertyType Tiny() => new(IntegerType.Tiny);
+    public static IntegerPropertyType Small() => new(IntegerType.Small);
+    public static IntegerPropertyType Regular() => new(IntegerType.Regular);
+    public static IntegerPropertyType Big() => new(IntegerType.Big);
 
     public IntegerType Type { get; }
 

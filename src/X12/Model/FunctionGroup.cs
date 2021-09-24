@@ -106,7 +106,7 @@ namespace X12.Model
     internal Transaction AddTransaction(string segmentString)
     {
       var transactionType = new Segment(null, this._delimiters, segmentString).GetElement(1);
-      var spec = SpecFinder.FindTransactionSpec(FunctionalIdentifierCode, VersionIdentifierCode, transactionType);
+      var spec = SpecFinder.FindTransactionSpec(VersionIdentifierCode, transactionType);
       var transaction = new Transaction(this, this._delimiters, segmentString, spec);
       _segments.Add(transaction);
       return transaction;
@@ -114,7 +114,7 @@ namespace X12.Model
 
     public Transaction AddTransaction(string identifierCode, string controlNumber)
     {
-      var spec = SpecFinder.FindTransactionSpec(FunctionalIdentifierCode, VersionIdentifierCode, identifierCode);
+      var spec = SpecFinder.FindTransactionSpec(VersionIdentifierCode, identifierCode);
 
       var transaction = new Transaction(
         this,

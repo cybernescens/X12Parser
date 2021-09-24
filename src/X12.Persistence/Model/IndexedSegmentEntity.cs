@@ -37,5 +37,7 @@ namespace X12.Persistence.Model
         return value.HasValue ? (short)value.Value : null;
       }
     }
+
+    public byte[]? GetBinaryElement(string element) => _segment.GetBinaryElement(int.Parse(element));
   }
 }

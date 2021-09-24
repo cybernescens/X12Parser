@@ -25,7 +25,7 @@ namespace X12.Parsing.Specification
 
     public string Name { get; set; }
     public StartingSegment StartingSegment { get; set; }
-
+    
     [XmlElement("Segment")]
     public List<SegmentSpecification> SegmentSpecifications { get; set; }
 

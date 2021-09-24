@@ -15,7 +15,7 @@ namespace X12.Parsing.Specification
     public UsageEnum Usage { get; set; }
 
     public string Name { get; set; }
-
+    
     [XmlElement("Segment")]
     public List<SegmentSpecification> SegmentSpecifications { get; set; }
 

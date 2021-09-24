@@ -4,7 +4,7 @@ namespace X12.Parsing
 {
   public interface ISpecificationFinder
   {
-    TransactionSpecification FindTransactionSpec(string functionalCode, string versionCode, string transactionSetCode);
+    TransactionSpecification FindTransactionSpec(string versionCode, string transactionSetCode);
     SegmentSpecification FindSegmentSpec(string versionCode, string segmentId);
   }
 }

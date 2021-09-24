@@ -87,7 +87,6 @@ namespace X12.Validation
         response.ImplementationConventionReference = stElements[3];
 
       var transactionSpec = _specFinder.FindTransactionSpec(
-        functionalCode,
         versionIdentifierCode,
         response.TransactionSetIdentifierCode);
 
@@ -199,7 +198,7 @@ namespace X12.Validation
                   return response;
                 }
               }
-              else if (currentContainer.Spec.SegmentSpecifications.Exists(ss => ss.SegmentId == segmentInfo.SegmentId))
+              else if (currentContainer.Spec.SegmentSpecifications.Any(ss => ss.SegmentId == segmentInfo.SegmentId))
               {
                 segmentInfo.LoopId = currentContainer.Spec.LoopId;
                 currentContainer.Segments.Add(segmentInfo);

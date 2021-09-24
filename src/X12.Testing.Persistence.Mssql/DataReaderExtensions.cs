@@ -18,7 +18,8 @@ namespace X12.Testing.Persistence.Mssql
         convert = o => (T)Convert.ChangeType(o, typeof(T));
 
       var value = GetValue(reader, key);
-      return value != null ? convert(value) : Activator.CreateInstance<T>();
+      return convert(value);
+      //return value != null ? convert(value) : Activator.CreateInstance<T>();
     }
 
     public static string Get(this IDataReader reader, string key) => Get(reader, key, Convert.ToString);

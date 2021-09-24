@@ -123,6 +123,9 @@ namespace X12.Model
     public DateTime? GetDate8Element(int elementNumber)
     {
       var element = GetElement(elementNumber);
+      if (string.IsNullOrEmpty(element))
+        return null;
+
       return element.Length == 8 ? DateTime.ParseExact(element, "yyyyMMdd", null) : null;
     }
 
@@ -137,6 +140,14 @@ namespace X12.Model
     }
 
     public bool GetBooleanElement(int parse) { throw new NotImplementedException(); }
+
+    public byte[]? GetBinaryElement(int element) =>
+      GetElement(element)
+        .Select((x, i) => (Char: x, Index: i))
+        .GroupBy(x => x.Index / 8)
+        .Select(g => new string(g.Select(x => x.Char).ToArray()))
+        .Select(x => Convert.ToByte(x, 2))
+        .ToArray();
 
     protected virtual void ValidateAgainstSegmentSpecification(string elementId, int elementNumber, string value)
     {

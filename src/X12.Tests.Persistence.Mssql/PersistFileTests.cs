@@ -30,7 +30,7 @@ namespace X12.Tests.Persistence.Mssql
     public void Setup()
     {
       DatabaseName = $"x12_{DateTime.Now:yyyyMMddHHmmss}";
-      GenerateSegments = GenerateSegments.X837;
+      GenerateSegments = GenerateSegments.FromName;
     }
 
     public static IEnumerable<TestCaseData> SampleFilesPqr() =>
@@ -214,7 +214,9 @@ namespace X12.Tests.Persistence.Mssql
                     nameof(DateTime) => () => expected.GetDate8Element(i),
                     nameof(Decimal)  => () => expected.GetDecimalElement(i),
                     nameof(Int32)    => () => expected.GetIntElement(i),
+                    nameof(Int64)    => () => expected.GetLongElement(i),
                     nameof(TimeSpan) => () => expected.GetTimeElement(i),
+                    "Byte[]"         => () => expected.GetBinaryElement(i),
                     _                => () => expected.GetElement(i),
                   };
 
@@ -223,14 +225,16 @@ namespace X12.Tests.Persistence.Mssql
                     nameof(DateTime) => () => reader.Get<DateTime?>($"{i:D2}"),
                     nameof(Decimal)  => () => reader.Get<decimal?>($"{i:D2}"),
                     nameof(Int32)    => () => reader.Get<int?>($"{i:D2}"),
+                    nameof(Int64)    => () => reader.Get<long?>($"{i:D2}"),
                     nameof(TimeSpan) => () => reader.Get<TimeSpan?>($"{i:D2}"),
+                    "Byte[]"         => () => reader.Get<byte[]?>($"{i:D2}"),
                     _                => () => reader.Get($"{i:D2}"),
                   };
 
                   Assert.AreEqual(
                     ef(),
                     af(),
-                    $"Data Element does not match for Segment `{index}` at Interchange Position `{pii}`");
+                    $"Data Element does not match for Segment `{index}` at Interchange Position `{pii}` (`{fieldType.Name}`)");
                 }
               }
 

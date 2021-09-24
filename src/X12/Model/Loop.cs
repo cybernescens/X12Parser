@@ -44,7 +44,7 @@ namespace X12.Model
 
     public override bool AllowsHierarchicalLoop(string levelCode)
     {
-      return Specification.HierarchicalLoopSpecifications.Exists(
+      return Specification.HierarchicalLoopSpecifications.Any(
         hl => hl.LevelCode == levelCode || hl.LevelCode == null || hl.LevelCode == "");
     }
 

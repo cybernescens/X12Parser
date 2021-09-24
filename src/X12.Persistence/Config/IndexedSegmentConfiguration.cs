@@ -33,6 +33,40 @@ namespace X12.Persistence.Config
 
     public ISpecificationFinder SpecificationFinder { get; set; } = new SpecificationFinder();
 
+    public IndexedSegmentConfiguration TransactionSet(string versionCode, string transactionSetCode, bool @throw = true)
+    {
+      void Traverse(IContainerSpecification? spec)
+      {
+        if (spec == null)
+          return;
+
+        foreach(var ss in spec.HierarchicalLoopSpecifications)
+          Traverse(ss);
+
+        foreach(var ss in spec.LoopSpecifications)
+          Traverse(ss);
+
+        foreach (var ss in spec.SegmentSpecifications)
+          TraverseSegment(ss);
+      }
+
+      void TraverseSegment(SegmentSpecification? spec)
+      {
+        if (spec == null || string.IsNullOrEmpty(spec.SegmentId))
+          return;
+
+        _segments.Add(spec.SegmentId);
+      }
+
+      var ts = SpecificationFinder.FindTransactionSpec(versionCode, transactionSetCode);
+      if ((ts == null || !ts.SegmentSpecifications.Any()) && @throw)
+        throw new X12PersistenceConfigurationException(
+          $"Unable to resolve Transaction Specification for Version `{versionCode}` and Transaction Set Code `{transactionSetCode}`");
+
+      Traverse(ts);
+      return this;
+    }
+
     public IndexedSegmentConfiguration Finder(ISpecificationFinder finder)
     {
       SpecificationFinder = finder;
@@ -78,7 +112,7 @@ namespace X12.Persistence.Config
         throw new X12PersistenceConfigurationException(
           $"`{nameof(IndexedSegmentConfiguration)}` missing configuration option `{nameof(SpecificationFinder)}`.");
 
-      var specs = _segments.Select(x => SpecificationFinder.FindSegmentSpec(FiftyTen, x)).ToList();
+      var specs = _segments.Select(x => SpecificationFinder.FindSegmentSpec(FiftyTen, x)).Where(x => x != null).ToList();
       sc.AddSingleton(SpecificationFinder);
       sc.AddSingleton<IList<SegmentSpecification>>(specs);
       return sc;

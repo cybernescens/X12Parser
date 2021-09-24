@@ -21,73 +21,57 @@ namespace X12.Parsing
     static SpecificationFinder() { _specifications = new ConcurrentDictionary<string, TransactionSpecification>(); }
 
     public virtual TransactionSpecification FindTransactionSpec(
-      string functionalCode,
       string versionCode,
       string transactionSetCode)
     {
-      switch (transactionSetCode)
+      return (versionCode, transactionSetCode) switch {
+        ("5010", "270") => GetSpecification("270-5010"),
+        (_, "270")      => GetSpecification("270-4010"),
+        ("5010", "271") => GetSpecification("271-5010"),
+        (_, "271")      => GetSpecification("271-4010"),
+        (_, "275")      => GetSpecification("275-4050"),
+        (_, "276")      => GetSpecification("276-5010"),
+        (_, "277")      => GetSpecification("276-5010"),
+        ("5010", "278") => GetSpecification("278-5010"),
+        (_, "278")      => GetSpecification("278-4010"),
+        ("5010", "834") => GetSpecification("834-5010"),
+        (_, "834")      => GetSpecification("834-4010"),
+        ("5010", "835") => GetSpecification("835-5010"),
+        (_, "835")      => GetSpecification("835-4010"),
+        ("5010", "837") => GetSpecification("837-5010"),
+        (_, "837")      => GetSpecification("837-4010"),
+        (_, "875")      => GetSpecification("875-5010"),
+        ("5050", "880") => GetSpecification("880-5050"),
+        (_, "880")      => GetSpecification("880-4010"),
+        (_, "999")      => GetSpecification("999-5010"),
+        (_, _)          => Find()
+      };
+
+      TransactionSpecification Find()
       {
-        case "270":
-          if (versionCode.Contains("5010"))
-            return GetSpecification("270-5010");
-          else
-            return GetSpecification("270-4010");
-        case "271":
-          if (versionCode.Contains("5010"))
-            return GetSpecification("271-5010");
-          else
-            return GetSpecification("271-4010");
-        case "275":
-          return GetSpecification("275-4050");
-        case "276":
-        case "277":
-          return GetSpecification("276-5010");
-        case "278":
-          if (versionCode.Contains("5010"))
-            return GetSpecification("278-5010");
-          else
-            return GetSpecification("278-4010");
-        case "834":
-          if (versionCode.Contains("5010"))
-            return GetSpecification("834-5010");
-          else
-            return GetSpecification("834-4010");
-        case "835":
-          if (versionCode.Contains("5010"))
-            return GetSpecification("835-5010");
-          else
-            return GetSpecification("835-4010");
-        case "837":
-          if (versionCode.Contains("5010"))
-            return GetSpecification("837-5010");
-          else
-            return GetSpecification("837-4010");
-        case "875":
-          return GetSpecification("875-5010");
-        case "880":
-          if (versionCode.Contains("5050"))
-            return GetSpecification("880-5050");
-          else
-            return GetSpecification("880-4010");
-        case "999":
-          return GetSpecification("999-5010");
-        default:
-          var specStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(
-            string.Format("X12.Specifications.Ansi-{0}-4010Specification.xml", transactionSetCode));
+        var manifests = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+        var name = 
+          manifests.FirstOrDefault(
+            x => x.Contains(transactionSetCode, StringComparison.OrdinalIgnoreCase) &&
+              x.Contains(versionCode, StringComparison.OrdinalIgnoreCase)) ??
+          manifests.FirstOrDefault(
+            x => x.Contains(transactionSetCode, StringComparison.OrdinalIgnoreCase));
 
-          if (specStream != null)
-            return GetSpecification(transactionSetCode + "-4010");
+        if (string.IsNullOrEmpty(name))
+          throw new NotSupportedException($"Transaction Set {transactionSetCode} is not supported.");
 
-          specStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(
-            string.Format("X12.Specifications.Ansi-{0}-Specification.xml", transactionSetCode));
+        var key = $"{transactionSetCode}-{versionCode}";
 
-          if (specStream != null)
-            return GetSpecification(transactionSetCode + "-");
-
-          throw new NotSupportedException(string.Format("Transaction Set {0} is not supported.", transactionSetCode));
+        return _specifications.GetOrAdd(
+          key,
+          _ => {
+            var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name);
+            using var reader = new StreamReader(stream);
+            return TransactionSpecification.Deserialize(reader.ReadToEnd());
+          });
       }
     }
-
+    
     public virtual SegmentSpecification FindSegmentSpec(string versionCode, string segmentId)
     {
       if (versionCode.Contains("5010"))
