@@ -8,7 +8,7 @@ namespace X12.Persistence.Model
   [Table("File")]
   public class FileEntity : Entity
   {
-    public FileEntity(string filepath, string filehash, string username = null)
+    public FileEntity(string filepath, string filehash, string? username = null)
     {
       PersistUser = username ?? $"{Environment.UserDomainName}\\{Environment.UserName}";
       Filename = Path.GetFileName(filepath);
@@ -31,5 +31,8 @@ namespace X12.Persistence.Model
     [DataType(DataType.DateTime)]
     [Required]
     public DateTime PersistMoment { get; }
+
+    public static explicit operator FileEntity(FileHash fileHash) =>
+      new FileEntity(fileHash.File, fileHash.Hash, fileHash.Owner);
   }
 }

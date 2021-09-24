@@ -18,7 +18,7 @@ namespace X12.Persistence.Sql.Schema
     private readonly string _schema;
     private readonly ISchemaGenerationConfigurer _configurer;
     private readonly IIdentityProvider _identityProvider;
-    private readonly IColumnMetaBuilderFactory _metaBuilderFactory;
+    private readonly IPropertyMetaBuilderFactory _metaBuilderFactory;
     private readonly IIdentityProviderScriptFactory _identityProviderScriptFactory;
     private readonly IList<SegmentSpecification> _segments;
 
@@ -26,7 +26,7 @@ namespace X12.Persistence.Sql.Schema
       ISchemaGenerationConfigurer configurer,
       PersistenceOptions options, 
       IIdentityProvider identityProvider, 
-      IColumnMetaBuilderFactory metaBuilderFactory,
+      IPropertyMetaBuilderFactory metaBuilderFactory,
       IIdentityProviderScriptFactory identityProviderScriptFactory,
       IList<SegmentSpecification> segments)
     {
@@ -64,11 +64,9 @@ namespace X12.Persistence.Sql.Schema
         .ToList()
         .ForEach(x => b.WithScript(x));
 
-      return b
+      return _configurer.Configure(b)
         .WithVariable("x12_schema", _schema)
         .WithVariable("identity", it.Render())
-        .LogToConsole()
-        .LogToAutodetectedLog()
         .Build()
         .PerformUpgrade();
     }

@@ -12,11 +12,11 @@ namespace X12.Persistence.Sql.Schema.Scripts._10.Templates
   public class AnnotatedTypeSqlScript : SqlScript
   {
     private readonly SegmentType _segmentType;
-    private readonly IList<ColumnMetadata> _columnMetadata;
+    private readonly IList<BatchPropertyMetadata> _columnMetadata;
 
     public AnnotatedTypeSqlScript(
       SegmentType segmentType,
-      IList<ColumnMetadata> columnMetadata,
+      IList<BatchPropertyMetadata> columnMetadata,
       SqlScriptOptions sqlScriptOptions = null) 
       : base($"{typeof(AnnotatedTypeSqlScript).Namespace}._{segmentType.Priority:D2}.{segmentType.Id}", null, sqlScriptOptions)
     {

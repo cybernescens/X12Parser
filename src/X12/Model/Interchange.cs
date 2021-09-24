@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -12,15 +13,12 @@ namespace X12.Model
 {
   public sealed class Interchange : Container
   {
-    private readonly IList<FunctionGroup> _functionGroups;
-
     internal Interchange() : base(null, null, "GS") { }
 
     internal Interchange(ISpecificationFinder specFinder, string segmentString)
       : base(null, new X12DelimiterSet(segmentString.ToCharArray()), segmentString)
     {
       SpecFinder = specFinder;
-      _functionGroups = new List<FunctionGroup>();
     }
 
     public Interchange(
@@ -48,8 +46,6 @@ namespace X12.Model
           "ISA00",
           controlNumber.ToString());
 
-      _functionGroups = new List<FunctionGroup>();
-
       SetTerminatingTrailerSegment(
         string.Format(
           "IEA{0}0{0}{2:000000000}{1}",
@@ -75,9 +71,10 @@ namespace X12.Model
         production,
         new X12DelimiterSet(segmentTerminator, elementSeparator, subElementSeparator)) { }
 
-    public override FunctionGroup Group => null;
-
     protected internal override ISpecificationFinder SpecFinder { get; }
+    public override FunctionGroup Group => null;
+    public Segment Trailer => _trailer;
+    public IEnumerable<FunctionGroup> FunctionGroups => this._segments.OfType<FunctionGroup>();
 
     public string AuthorInfoQualifier
     {
@@ -130,7 +127,13 @@ namespace X12.Model
     public DateTime InterchangeDate
     {
       get {
-        if (DateTime.TryParseExact(GetElement(9) + GetElement(10), "yyMMddHHmm", null, DateTimeStyles.None, out var date))
+        if (DateTime.TryParseExact(GetElement(9) + GetElement(10), "yyyyMMddHHmm", null, DateTimeStyles.None, out var date))
+          return date;
+
+        if (DateTime.TryParseExact(GetElement(9), "yyyyMMdd", null, DateTimeStyles.None, out date))
+          return date;
+        
+        if (DateTime.TryParseExact(GetElement(9), "yyyyMMd", null, DateTimeStyles.None, out date))
           return date;
 
         if (DateTime.TryParseExact(GetElement(9), "yyMMdd", null, DateTimeStyles.None, out date))
@@ -147,16 +150,14 @@ namespace X12.Model
 
     public string InterchangeControlNumber => GetElement(13);
 
-    public IEnumerable<FunctionGroup> FunctionGroups => _functionGroups;
-
     protected override IList<SegmentSpecification> AllowedChildSegments => new List<SegmentSpecification>();
 
-    internal override IEnumerable<string> TrailerSegmentIds => new List<string>();
+    //internal override IEnumerable<string> TrailerSegmentIds => new List<string>();
 
     internal FunctionGroup AddFunctionGroup(string segmentString)
     {
       var fg = new FunctionGroup(SpecFinder, this, this._delimiters, segmentString);
-      _functionGroups.Add(fg);
+      _segments.Add(fg);
       return fg;
     }
 
@@ -192,23 +193,14 @@ namespace X12.Model
           this._delimiters.SegmentTerminator,
           controlNumber));
 
-      _functionGroups.Add(fg);
+      _segments.Add(fg);
       return fg;
     }
-
-    internal override string SerializeBodyToX12(bool addWhitespace)
+    
+    internal override string ToX12String(bool addWhitespace = false, int indent = 0, int step = 0)
     {
-      var sb = new StringBuilder();
-      foreach (var fg in _functionGroups)
-        sb.Append(fg.ToX12String(addWhitespace));
-
-      return sb.ToString();
-    }
-
-    internal override string ToX12String(bool addWhitespace)
-    {
-      UpdateTrailerSegmentCount("IEA", 1, _functionGroups.Count);
-      return base.ToX12String(addWhitespace);
+      UpdateTrailerSegmentCount("IEA", 1, FunctionGroups.Count());
+      return base.ToX12String(addWhitespace, indent, step);
     }
 
     public string Serialize() => Serialize(false);
@@ -289,14 +281,14 @@ namespace X12.Model
       writer.WriteAttributeString("sub-element-separator", this._delimiters.SubElementSeparator.ToString());
       base.WriteXml(writer);
 
-      foreach (var segment in Segments)
-        segment.WriteXml(writer);
+      //foreach (var segment in Segments)
+      //  segment.WriteXml(writer);
 
-      foreach (var functionGroup in FunctionGroups)
-        functionGroup.WriteXml(writer);
+      //foreach (var functionGroup in FunctionGroups)
+      //  functionGroup.WriteXml(writer);
 
-      foreach (var segment in TrailerSegments)
-        segment.WriteXml(writer);
+      //foreach (var segment in TrailerSegments)
+      //  segment.WriteXml(writer);
     }
 
     #endregion

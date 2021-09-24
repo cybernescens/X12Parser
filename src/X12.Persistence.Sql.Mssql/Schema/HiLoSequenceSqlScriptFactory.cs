@@ -3,13 +3,14 @@ using System.Linq;
 using DbUp.Engine;
 using X12.Parsing.Specification;
 using X12.Persistence.Meta;
+using X12.Persistence.Meta.Property;
 using X12.Persistence.Sql.Schema;
 
 namespace X12.Persistence.Sql.Mssql.Schema
 {
   public class HiLoSequenceSqlScriptFactory : IIdentityProviderScriptFactory
   {
-    private readonly SqlDataType _identityType;
+    private readonly PropertyDataType _identityType;
     private readonly PersistenceOptions _options;
     private readonly IList<IndexSegmentSegmentType> _segmentTypes;
 

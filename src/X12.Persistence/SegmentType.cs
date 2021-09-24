@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
 using System.Reflection;
 using X12.Parsing.Specification;
 using X12.Persistence.Model;
 
 namespace X12.Persistence
 {
+  [DebuggerDisplay("{ToString()}")]
   public class SegmentType : IEquatable<SegmentType>
   {
     internal static readonly FileSegmentType File = new();
@@ -52,6 +54,8 @@ namespace X12.Persistence
 
       return obj.GetType() == GetType() && Equals((SegmentType)obj);
     }
+
+    public override string ToString() => $"{Id} [{EntityType.Name}]";
   }
 
   public class FileSegmentType : SegmentType

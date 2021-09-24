@@ -11,10 +11,25 @@ namespace X12.Model
   [DebuggerDisplay("{ToString()}")]
   public class HierarchicalLoop : HierarchicalLoopContainer
   {
-    internal HierarchicalLoop(Container parent, X12DelimiterSet delimiters, string segment)
-      : base(parent, delimiters, segment) { }
+    internal HierarchicalLoop(
+      Container parent,
+      X12DelimiterSet delimiters,
+      string segment,
+      IEnumerable<HierarchicalLoopSpecification> specifications)
+      : base(parent, delimiters, segment)
+    {
+      Specification =
+        specifications.FirstOrDefault(hls => hls.LevelCode == null || hls.LevelCode.ToString() == LevelCode) ??
+        throw new TransactionValidationException(
+          "{0} Transaction does not expect {2} level code value {3} that appears in transaction control number {1}.",
+          Transaction.IdentifierCode,
+          Transaction.ControlNumber,
+          "HL03",
+          LevelCode);
+    }
 
-    public HierarchicalLoopSpecification Specification { get; internal set; }
+    public HierarchicalLoopSpecification Specification { get; }
+    internal override bool HasHierarchicalSpecification() => false;
 
     internal override IList<LoopSpecification> AllowedChildLoops => 
       Specification != null ? Specification.LoopSpecifications : new List<LoopSpecification>();
@@ -35,10 +50,7 @@ namespace X12.Model
       get => GetElement(4);
       internal set => SetElement(4, value);
     }
-
-    internal override IEnumerable<string> TrailerSegmentIds => 
-      Specification.SegmentSpecifications.Where(ss => ss.Trailer).Select(spec => spec.SegmentId).ToList();
-
+    
     public override bool AllowsHierarchicalLoop(string levelCode) => true;
 
     public override HierarchicalLoop AddHLoop(string id, string levelCode, bool? existingHierarchicalLoops)
@@ -73,7 +85,9 @@ namespace X12.Model
       writer.WriteEndElement();
     }
 
+    public override int GetHashCode() => string.GetHashCode($"HL-{Id}");
+
     public override string ToString() =>
-      $"Loop(Id={Id},ParentId={ParentId},Level={LevelCode},ChildLoops={Loops.Count()}, ChildSegments={Segments.Count()})";
+      $"{SegmentString} [Loop(Id={Id},ParentId={ParentId},Level={LevelCode},ChildLoops={Loops.Count()}, ChildSegments={((Container)this).Segments.Count()})]";
   }
 }

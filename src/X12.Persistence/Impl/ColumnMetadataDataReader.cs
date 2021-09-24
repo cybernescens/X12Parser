@@ -17,7 +17,7 @@ namespace X12.Persistence.Impl
 
     public ColumnMetadataDataReader(
       ICollection<IndexedSegmentEntity> items,
-      IList<ColumnMetadata> columnMetadata)
+      IList<BatchPropertyMetadata> columnMetadata)
     {
       _enumerator = items.GetEnumerator();
       _ordinals = columnMetadata

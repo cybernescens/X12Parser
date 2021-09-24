@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,10 +12,16 @@ namespace X12.Model
 {
   public abstract class Container : Segment
   {
-    private static readonly Regex NewLineRegex = new("(?<nl>\r\n|\r|\n)", RegexOptions.Compiled);
-    protected IList<Segment> _segments;
+    private static readonly Regex NewLineRegex = new(@"(\r\n|\r|\n)", RegexOptions.Compiled);
 
-    private Segment _terminatingTrailerSegment;
+    protected readonly ICollection<Segment> _segments = new Collection<Segment>();
+
+    public IEnumerable<Segment> Segments =>
+      _trailer != null
+        ? _segments.Concat(new[] { _trailer })
+        : _segments;
+
+    protected Segment _trailer;
 
     internal Container(Container parent, X12DelimiterSet delimiters, string segment)
       : base(parent, delimiters, segment) { }
@@ -27,35 +34,14 @@ namespace X12.Model
         Container GetTransaction(Container c) =>
           c switch {
             Transaction tx => tx,
-            Container      => GetTransaction(c.Parent),
+            { }            => GetTransaction(c.Parent),
             null           => null
           };
 
         return GetTransaction(this) as Transaction;
       }
     }
-
-    public IEnumerable<Segment> Segments => _segments;
-
-    internal abstract IEnumerable<string> TrailerSegmentIds { get; }
-
-    public IEnumerable<Segment> TrailerSegments
-    {
-      get {
-        var list = new List<Segment>();
-        if (_terminatingTrailerSegment != null)
-          list.Add(_terminatingTrailerSegment);
-
-        return list;
-      }
-    }
-
-    internal override void Initialize(string segment)
-    {
-      base.Initialize(segment);
-      _segments = new List<Segment>();
-    }
-
+    
     public Segment AddSegment(string segmentString) => AddSegment(segmentString, false);
 
     public Segment AddSegment(string segmentString, bool forceAdd)
@@ -74,28 +60,17 @@ namespace X12.Model
       _segments.Add(segment);
       return segment;
     }
-
-    //public T AddSegment<T>(T segment) where T : TypedSegment
-    //{
-    //  segment.Initialize(this, this._delimiters);
-    //  var spec = AllowedChildSegments.FirstOrDefault(acs => acs.SegmentId == segment._segment.SegmentId);
-    //  if (spec == null)
-    //    return null;
-
-    //  _segments.Add(segment._segment);
-    //  return segment;
-    //}
-
+    
     internal void SetTerminatingTrailerSegment(string segmentString)
     {
-      _terminatingTrailerSegment = new Segment(this, this._delimiters, segmentString);
+      _trailer = new Segment(this, this._delimiters, segmentString);
     }
 
-    internal virtual int CountTotalSegments() => 1 + Segments.Count() + TrailerSegments.Count();
+    public override int Count => 1 + Segments.Sum(x => x.Count);
 
     internal bool UpdateTrailerSegmentCount(string segmentId, int elementNumber, int count)
     {
-      var segment = _terminatingTrailerSegment;
+      var segment = _trailer;
       if (segment == null)
         return false;
 
@@ -106,36 +81,21 @@ namespace X12.Model
       return true;
     }
 
-    internal abstract string SerializeBodyToX12(bool addWhitespace);
-
-    internal override string ToX12String(bool addWhitespace)
+    internal override string ToX12String(bool addWhitespace = false, int indent = 0, int step = 0)
     {
-      var sb = new StringBuilder(base.ToX12String(addWhitespace));
-
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
       string AddWhitespace(string s, Func<bool> extra = null) =>
         addWhitespace && (extra ?? (() => true))()
-          ? NewLineRegex.Replace(s, me => $"{me.Groups["nl"]} ")
+          ? NewLineRegex.Replace(s, Environment.NewLine)
           : s;
 
-      Segments.Where(seg => !TrailerSegmentIds.Contains(seg.SegmentId))
+      var sb = new StringBuilder(); 
+      sb.Append(base.ToX12String(addWhitespace, indent, step));
+
+      Segments
         .ToList()
-        .ForEach(x => sb.Append(AddWhitespace(x.ToX12String(addWhitespace))));
-
-      sb.Append(AddWhitespace(SerializeBodyToX12(addWhitespace)));
-
-      Segments.Where(seg => TrailerSegmentIds.Contains(seg.SegmentId))
-        .ToList()
-        .ForEach(x => sb.Append(AddWhitespace(x.ToX12String(addWhitespace))));
-
-      TrailerSegments
-        .ToList()
-        .ForEach(
-          x => sb.Append(
-            AddWhitespace(
-              x.ToX12String(addWhitespace),
-              () => new[] { "SE", "GE", "IEA" }.All(y => y != x.SegmentId))));
-
+        .ForEach(x => sb.Append(AddWhitespace(x.ToX12String(addWhitespace, indent + step, step))));
+        
       return sb.ToString();
     }
   }

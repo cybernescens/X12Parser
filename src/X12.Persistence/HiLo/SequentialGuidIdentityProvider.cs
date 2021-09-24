@@ -1,5 +1,6 @@
 ﻿using System;
 using X12.Persistence.Meta;
+using X12.Persistence.Meta.Property;
 
 namespace X12.Persistence.HiLo
 {
@@ -37,6 +38,6 @@ namespace X12.Persistence.HiLo
       return new Guid(guidArray);
     }
 
-    public SqlDataType ToSqlDataType() => new UniqueIdentifierSqlType();
+    public PropertyDataType ToSqlDataType() => new UniqueIdentifierPropertyType();
   }
 }

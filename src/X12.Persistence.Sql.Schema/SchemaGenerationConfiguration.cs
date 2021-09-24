@@ -1,4 +1,5 @@
-﻿using DbUp.Engine;
+﻿using System;
+using DbUp.Engine;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using X12.Persistence.Config;
@@ -15,6 +16,8 @@ namespace X12.Persistence.Sql.Schema
       PersistenceSessionConfigurationRequired = false;
     }
 
+    private IServiceProvider ServiceProvider { get; set; }
+
     public SchemaGenerationOptionsConfiguration SchemaGenerationOptionsConfiguration { get; set; }
 
     public ISchemaGenerator Prepare()
@@ -26,7 +29,7 @@ namespace X12.Persistence.Sql.Schema
       return scope.ServiceProvider.GetRequiredService<ISchemaGenerator>();
     }
 
-    protected override IServiceCollection Apply(IServiceCollection sc = null)
+    protected override IServiceCollection Apply(IServiceCollection? sc = null)
     {
       sc ??= new ServiceCollection();
       SchemaGenerationOptionsConfiguration.Apply(sc);

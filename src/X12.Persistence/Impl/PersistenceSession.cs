@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,21 +14,21 @@ namespace X12.Persistence.Impl
 {
   public class PersistenceSession : IIdentifiablePersistenceSession
   {
-    private readonly IColumnMetaBuilderFactory _metaBuilderFactory;
+    private readonly IPropertyMetaBuilderFactory _metaBuilderFactory;
     private readonly IPersistStartHandler _startHandler;
     private readonly IPersistCompleteHandler _completeHandler;
     private readonly IPersistRollbackHandler _rollbackHandler;
     private readonly Dictionary<SegmentType, ISegmentBatch> _batches;
     private readonly ILogger<PersistenceSession> _logger;
 
-    private bool _disposed = false;
+    private bool _disposed;
 
     internal IServiceProvider ServiceProvider { get; }
     internal IIdentityProvider IdentityProvider { get; }
 
     public PersistenceSession(
       IPersistenceSessionFactory sessionFactory,
-      IColumnMetaBuilderFactory metaBuilderFactory,
+      IPropertyMetaBuilderFactory metaBuilderFactory,
       IIdentityProvider identityProvider,
       IServiceProvider serviceProvider,
       IPersistStartHandler startHandler,
@@ -63,13 +64,12 @@ namespace X12.Persistence.Impl
     internal PersistenceSessionFactory SessionFactory { get; }
     public Guid Id { get; set; }
 
-    public void Persist(IEnumerable<Interchange> interchanges, string filepath, string filehash, string? username = null)
+    public void Persist(IEnumerable<Interchange> interchanges, FileHash sourceFile)
     {
       if (_disposed)
         throw new ObjectDisposedException(nameof(PersistenceSession));
 
-      username ??= $"{Environment.UserDomainName}\\{Environment.UserName}";
-      var fileId = AddFile(new FileEntity(filepath, filehash, username));
+      var fileId = AddFile((FileEntity)sourceFile);
 
       foreach (var interchange in interchanges)
       {
@@ -77,51 +77,33 @@ namespace X12.Persistence.Impl
         var isaId = AddInterchange(interchange, fileId);
         AddSegment(interchange, pii, isaId);
 
-        foreach (var fg in interchange.FunctionGroups)
+        foreach (var isaChild in interchange.Segments)
         {
-          var fgId = AddFunctionalGroup(fg, isaId);
-          AddSegment(fg, +pii, isaId, fgId);
+          ++pii;
 
-          foreach (var tx in fg.Transactions)
+          if (isaChild is not FunctionGroup fg)
           {
-            var txId = AddTransactionSet(tx, isaId, fgId);
-            AddSegment(tx, +pii, isaId, fgId, txId);
-
-            foreach (var seg in tx.Segments)
-            {
-              if (seg is HierarchicalLoopContainer container)
-              {
-                ++pii;
-                ProcessLoop(
-                  container,
-                  ref pii,
-                  isaId,
-                  fgId,
-                  txId,
-                  tx.IdentifierCode);
-
-                continue;
-              }
-
-              AddSegment(seg, ++pii, isaId, fgId, txId);
-            }
-
-            foreach (var hl in tx.HLoops)
-            {
-              ++pii;
-              ProcessLoop(hl, ref pii, isaId, fgId, txId, tx.IdentifierCode);
-            }
-
-            foreach (var seg in tx.TrailerSegments)
-              AddSegment(seg, ++pii, isaId, fgId, txId);
+            AddSegment(isaChild, pii, isaId);
+            continue;
           }
 
-          foreach (var seg in fg.TrailerSegments)
-            AddSegment(seg, ++pii, isaId, fgId);
-        }
+          var fgId = AddFunctionalGroup(fg, isaId);
+          AddSegment(fg, pii, isaId, fgId);
 
-        foreach (var seg in interchange.TrailerSegments)
-          AddSegment(seg, ++pii, isaId);
+          foreach (var fgChild in fg.Segments)
+          {
+            ++pii;
+
+            if (fgChild is not Transaction tx)
+            {
+              AddSegment(fgChild, pii, isaId, fgId);
+              continue;
+            }
+
+            var txId = AddTransactionSet(tx, isaId, fgId);
+            ProcessLoop(tx, ref pii, isaId, fgId, txId, tx.TransactionSetCode);
+          }
+        }
       }
 
       Commit();
@@ -159,7 +141,7 @@ namespace X12.Persistence.Impl
         {
           _logger.LogWarning(e, $"Exception encountered while persisting batches. Invoking {nameof(IPersistRollbackHandler)}s.");
           _rollbackHandler.OnRollback(this, conn, e);
-          return;
+          throw;
         }
 
         _completeHandler.OnComplete(this, conn);
@@ -195,6 +177,7 @@ namespace X12.Persistence.Impl
       var loopId = loop switch {
         HierarchicalLoop hl => AddLoop(hl, interchangeId, txid, txcode, parentId),
         Loop l              => AddLoop(l, interchangeId, txid, txcode, parentId),
+        Transaction         => null,
         _ => throw new InvalidOperationException(
           $"Loop could not be created for interchange `{interchangeId}` position `{position}`")
       };
@@ -203,20 +186,20 @@ namespace X12.Persistence.Impl
 
       foreach (var child in loop.Segments)
       {
-        if (child is HierarchicalLoopContainer container)
-        {
-          ++position;
-          ProcessLoop(container, ref position, interchangeId, functionGroupId, txid, txcode, loopId);
-          continue;
-        }
-
-        AddSegment(child, ++position, interchangeId, functionGroupId, txid, loopId);
-      }
-
-      foreach (var hl in loop.HLoops)
-      {
         ++position;
-        ProcessLoop(hl, ref position, interchangeId, functionGroupId, txid, txcode, loopId);
+
+        switch (child)
+        {
+          case HierarchicalLoop hl:
+            ProcessLoop(hl, ref position, interchangeId, functionGroupId, txid, txcode, loopId);
+            continue;
+          case HierarchicalLoopContainer container:
+            ProcessLoop(container, ref position, interchangeId, functionGroupId, txid, txcode, loopId);
+            continue;
+          default: 
+            AddSegment(child, position, interchangeId, functionGroupId, txid, loopId);
+            break;
+        }
       }
     }
     

@@ -6,18 +6,21 @@ using System.Xml;
 using System.Xml.Xsl;
 using NUnit.Framework;
 using X12.Parsing;
+using X12.Testing.Samples;
 
 namespace X12.Tests.Flattening
 {
   [TestFixture]
-  public class Flatten820Tester
+  public class Flatten820Tester : IRequireSampleData
   {
     [Test]
     public void FlattenUsingXmlDocument()
     {
-      var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(
-        "X12.Tests.Unit.Parsing.SampleEdiFiles.ORD._820.Example1_MortgageBankers.txt");
-
+      var (_, stream) = this.LoadEmbeddedFileStream(
+        SampleCategory.ORD,
+        SampleReferenceNumber._820,
+        "Example1_MortgageBankers.txt");
+      
       var parser = new X12Parser(ParserSettings.Default);
       var interchange = parser.Parse(stream).First();
       var xml = interchange.Serialize();
@@ -51,8 +54,10 @@ namespace X12.Tests.Flattening
     [Test]
     public void FlattenUsingXslt()
     {
-      var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(
-        "X12.Tests.Unit.Parsing.SampleEdiFiles.ORD._820.Example1_MortgageBankers.txt");
+      var (_, stream) = this.LoadEmbeddedFileStream(
+        SampleCategory.ORD,
+        SampleReferenceNumber._820,
+        "Example1_MortgageBankers.txt");
 
       var parser = new X12Parser(ParserSettings.Default);
       var interchange = parser.Parse(stream).First();

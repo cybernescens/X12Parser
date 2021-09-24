@@ -17,7 +17,7 @@ namespace X12.Persistence.Impl
     public PersistenceSessionFactory(
       IServiceProvider serviceProvider,
       IConnectionManager connectionManager,
-      IColumnMetaBuilderFactory metaBuilderFactory,
+      IPropertyMetaBuilderFactory metaBuilderFactory,
       IFileHashService fileHashService,
       IList<SegmentSpecification> indexedSegments)
     {
@@ -38,7 +38,7 @@ namespace X12.Persistence.Impl
       }
     }
 
-    private IColumnMetaBuilderFactory MetaBuilderFactory { get; }
+    private IPropertyMetaBuilderFactory MetaBuilderFactory { get; }
     internal IServiceProvider ServiceProvider { get; }
     internal IConnectionManager ConnectionManager { get; }
 
@@ -50,13 +50,22 @@ namespace X12.Persistence.Impl
 
     public IFileHashService FileHashService { get; }
 
-    public IPersistenceSession OpenSession()
+    public IPersistenceSession OpenPersistence()
     {
       var scope = ServiceProvider.CreateScope();
       var session = scope.ServiceProvider.GetRequiredService<IIdentifiablePersistenceSession>();
 
       _sessions.TryAdd(session.Id, new SessionContainer(scope, session));
       session.OnPersistComplete += RemoveSession;
+      return session;
+    }
+
+    public IHydrationSession OpenHydration()
+    {
+      var scope = ServiceProvider.CreateScope();
+      var session = scope.ServiceProvider.GetRequiredService<IIdentifiableHydrationSession>();
+      _sessions.TryAdd(session.Id, new SessionContainer(scope, session));
+      session.OnHydrateComplete += RemoveSession;
       return session;
     }
 
@@ -70,14 +79,14 @@ namespace X12.Persistence.Impl
 
     private class SessionContainer : IDisposable
     {
-      public SessionContainer(IServiceScope scope, IIdentifiablePersistenceSession session)
+      public SessionContainer(IServiceScope scope, IIdentifiableSession session)
       {
         _scope = scope;
         _session = session;
       }
 
       private readonly IServiceScope _scope;
-      private readonly IIdentifiablePersistenceSession _session;
+      private readonly IIdentifiableSession _session;
       private bool _disposed;
       
       public void Dispose()

@@ -9,11 +9,12 @@ using X12.Persistence;
 using X12.Persistence.Config;
 using X12.Persistence.Impl;
 using X12.Testing.Persistence.Mssql;
+using X12.Testing.Samples;
 
 namespace X12.Tests.Persistence.Mssql
 {
   [TestFixture]
-  public class HiLoTests : IRequirePersistenceSessionFactory
+  public class HiLoTests : IRequirePersistenceSessionFactory, IRequireSampleData
   {
     [Test]
     public async Task ThreeSessionsShouldCreateThreeRanges()
@@ -23,7 +24,7 @@ namespace X12.Tests.Persistence.Mssql
         Enumerable.Range(0, 3).Select(
           _ => Task.Run(
             () => {
-              using var session = CurrentPersistenceSessionFactory.OpenSession();
+              using var session = CurrentPersistenceSessionFactory.OpenPersistence();
               var ip = ((PersistenceSession)session).IdentityProvider;
 
               for (var i = 0; i < new Random().Next(0, 10); i++)
@@ -48,7 +49,7 @@ namespace X12.Tests.Persistence.Mssql
         Enumerable.Range(0, 3).Select(
           _ => Task.Run(
             () => {
-              using var session = CurrentPersistenceSessionFactory.OpenSession();
+              using var session = CurrentPersistenceSessionFactory.OpenPersistence();
               var ip = ((PersistenceSession)session).IdentityProvider;
               var opts = ((PersistenceSession)session).ServiceProvider
                 .GetRequiredService<PersistenceOptions>();

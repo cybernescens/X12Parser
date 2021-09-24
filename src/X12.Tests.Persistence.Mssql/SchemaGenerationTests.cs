@@ -51,12 +51,12 @@ namespace X12.Tests.Persistence.Mssql
       var segments = segmentsraw.Split(',');
 
       var generator = SchemaGenerationConfiguration.Schema
-        .SchemaOptions(MssqlSchemaGenerationOptionsConfiguration.Default)
+        .SchemaOptions(MssqlSchemaGenerationOptionsConfiguration.Default.Customize(ueb => ueb.LogToConsole().LogToAutodetectedLog()))
         .Logging(lb => lb.AddSerilog(Log.Logger))
         .ConnectionManager(MssqlConnectionConfiguration.Default.Using(_dsn))
         .IdentityProvider(LongHiLoSequenceIdentityProviderConfiguration.Default)
         .IndexedSegments(IndexedSegmentConfiguration.Default.Parse(segmentsraw))
-        .ColumnMetaBuilder(ColumnMetaBuilderConfiguration.Default)
+        .ColumnMetaBuilder(PropertyMetaBuilderConfiguration.Default)
         .Options(PersistenceOptionsConfiguration.Default)
         .Prepare();
 

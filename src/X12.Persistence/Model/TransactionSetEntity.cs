@@ -18,11 +18,11 @@ namespace X12.Persistence.Model
     [MaxLength(3)]
     public string IdentifierCode { get; set; }
     
-    [MaxLength(9)]
+    [MaxLength(10)]
     public string ControlNumber { get; set; }
     
     [MaxLength(35)]
-    public string ImplementationConventionRef { get; set; }
+    public string? ImplementationConventionRef { get; set; }
 
     public static explicit operator TransactionSetEntity(Transaction tx) =>
       new () {

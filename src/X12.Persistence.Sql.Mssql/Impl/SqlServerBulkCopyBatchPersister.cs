@@ -37,9 +37,9 @@ namespace X12.Persistence.Sql.Mssql
       //_bulkCopier = null;
     }
 
-    public void Configure(IDisposable conn, SegmentType segmentType, IList<ColumnMetadata> columnMetadata)
+    public void Configure(IDisposable connection, SegmentType segmentType, IList<BatchPropertyMetadata> columnMetadata)
     {
-      var proxy = (SqlConnectionProxy)conn;
+      var proxy = (SqlConnectionProxy)connection;
       _bulkCopier = new SqlBulkCopy(proxy.Connection, SqlBulkCopyOptions.TableLock, proxy.CurrentTransaction);
       _bulkCopier.BatchSize = _batchSize;
       _bulkCopier.BulkCopyTimeout = 0;
@@ -88,7 +88,7 @@ namespace X12.Persistence.Sql.Mssql
 
           reader.Close();
           //tx.Rollback();
-          throw new Exception($"Column: {column} contains data with a length greater than: {length}");
+          throw new Exception($"Column: {_bulkCopier.DestinationTableName}.{column} contains data with a length greater than: {length}");
         }
 
         reader.Close();

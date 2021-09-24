@@ -64,10 +64,10 @@ namespace X12.Persistence.Batch
   public class IndexedSegmentBatch : ISegmentBatch
   {
     private readonly string _segmentId;
-    private readonly IList<ColumnMetadata> _columns;
+    private readonly IList<BatchPropertyMetadata> _columns;
     private readonly ICollection<IndexedSegmentEntity> _items;
 
-    public IndexedSegmentBatch(string segmentId, IList<ColumnMetadata> columns)
+    public IndexedSegmentBatch(string segmentId, IList<BatchPropertyMetadata> columns)
     {
       _segmentId = segmentId;
       _columns = columns;

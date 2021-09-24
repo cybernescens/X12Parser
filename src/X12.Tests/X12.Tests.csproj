@@ -43,6 +43,8 @@
     <ProjectReference Include="..\X12.Sql.Mssql\X12.Persistence.Sql.Mssql.csproj" />
     <ProjectReference Include="..\X12.Sql.Schema\X12.Persistence.Sql.Schema.csproj" />
     <ProjectReference Include="..\X12.Sql.Sqlite\X12.Persistence.Sql.Sqlite.csproj" />
+    <ProjectReference Include="..\X12.Testing.Samples\X12.Testing.Samples.csproj" />
+    <ProjectReference Include="..\X12.Testing\X12.Testing.csproj" />
     <ProjectReference Include="..\X12.Validation\X12.Validation.csproj" />
     <ProjectReference Include="..\X12\X12.csproj" />
   </ItemGroup>

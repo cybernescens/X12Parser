@@ -38,17 +38,10 @@ namespace X12.Parsing
       var parent = (LoopContainer) loop.Parent;
       sb.AppendLine(SerializeParent(parent, loopId));
       sb.AppendLine(loop.ToX12String(true));
-      foreach (var segment in loop.Transaction.TrailerSegments)
-      {
-        sb.Append(segment.SegmentString);
-        sb.AppendFormat("{0}", _segmentTerminator);
-      }
-
-      foreach (var segment in loop.Group.TrailerSegments)
-      {
-        sb.Append(segment.SegmentString);
-        sb.AppendFormat("{0}", _segmentTerminator);
-      }
+      sb.Append(loop.Transaction.Trailer.SegmentString);
+      sb.AppendFormat("{0}", _segmentTerminator);
+      sb.Append(loop.Group.Trailer.SegmentString);
+      sb.AppendFormat("{0}", _segmentTerminator);
 
       return sb.ToString();
     }

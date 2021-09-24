@@ -10,9 +10,9 @@ namespace X12.Parsing
 {
   public class X12Parser : IX12Parser
   {
-    public IParserSettings Settings { get; }
+    public ParserSettings Settings { get; }
 
-    public X12Parser(IParserSettings settings) { Settings = settings; }
+    public X12Parser(ParserSettings settings) { Settings = settings; }
     
     public IList<Interchange> Parse(string x12, Encoding encoding = null)
     {
@@ -136,7 +136,7 @@ namespace X12.Parsing
 
             if (parentId == string.Empty || !parentFound)
             {
-              while (!(currentContainer is HierarchicalLoopContainer container && container.HasHierarchicalSpecs()))
+              while (!(currentContainer is HierarchicalLoopContainer container && container.HasHierarchicalSpecification()))
                 currentContainer = currentContainer.Parent;
 
               currentContainer = ((HierarchicalLoopContainer)currentContainer).AddHLoop(segmentString);
@@ -160,6 +160,7 @@ namespace X12.Parsing
             var originalContainer = currentContainer;
             containerStack.Clear();
             while (currentContainer != null)
+            {
               if (currentContainer.AddSegment(segmentString) != null)
               {
                 if (segmentId == "LE")
@@ -167,72 +168,62 @@ namespace X12.Parsing
 
                 break;
               }
-              else
+
+              if (currentContainer is not LoopContainer loop)
+                continue;
+
+              var newLoop = loop.AddLoop(segmentString);
+              if (newLoop != null)
               {
-                if (currentContainer is LoopContainer)
-                {
-                  var loopContainer = (LoopContainer)currentContainer;
-
-                  var newLoop = loopContainer.AddLoop(segmentString);
-                  if (newLoop != null)
-                  {
-                    currentContainer = newLoop;
-                    break;
-                  }
-
-                  if (currentContainer is Transaction)
-                  {
-                    var tran = (Transaction)currentContainer;
-
-                    if (Settings.ThrowExceptionOnSyntaxErrors)
-                    {
-                      throw new TransactionValidationException(
-                        "Segment '{3}' in segment position {4} within transaction '{1}' cannot be identified within the supplied specification for transaction set {0} in any of the expected loops: {5}.  To change this to a warning, pass ParserConfiguration.ThrowExceptionOnSyntaxErrors = false to the X12Parser.",
-                        tran.IdentifierCode,
-                        tran.ControlNumber,
-                        "",
-                        segmentString,
-                        segmentIndex,
-                        string.Join(",", containerStack));
-                    }
-
-                    currentContainer = originalContainer;
-                    currentContainer.AddSegment(segmentString, true);
-                    Settings.OnParserWarning?.Invoke(
-                      this,
-                      new X12ParserWarningEventArgs {
-                        FileIsValid = false,
-                        InterchangeControlNumber = envelop.InterchangeControlNumber,
-                        FunctionalGroupControlNumber = fg.ControlNumber,
-                        TransactionControlNumber = tran.ControlNumber,
-                        SegmentPositionInInterchange = segmentIndex,
-                        SegmentId = segmentId,
-                        Segment = segmentString,
-                        Message = $"Segment '{segmentString}' in segment position {segmentIndex} within transaction '{tran.ControlNumber}' " +
-                          $"cannot be identified within the supplied specification for transaction set {tran.IdentifierCode} " +
-                          $"in any of the expected loops: {string.Join(",", containerStack)}.  " +
-                          $"It will be added to loop {containerStack.LastOrDefault()}, but this may invalidate all subsequent segments."
-                      });
-
-                    break;
-                  }
-
-                  if (currentContainer is Loop)
-                    containerStack.Push(((Loop)currentContainer).Specification.LoopId);
-
-                  if (currentContainer is HierarchicalLoop)
-                  {
-                    var hloop = (HierarchicalLoop)currentContainer;
-                    containerStack.Push($"{hloop.Specification.LoopId}[{hloop.Id}]");
-                  }
-
-                  currentContainer = currentContainer.Parent;
-                }
-                else
-                {
-                  break;
-                }
+                currentContainer = newLoop;
+                break;
               }
+
+              if (currentContainer is Transaction)
+              {
+                var tran = (Transaction)currentContainer;
+
+                if (Settings.ThrowExceptionOnSyntaxErrors)
+                {
+                  throw new TransactionValidationException(
+                    "Segment '{3}' in segment position {4} within transaction '{1}' cannot be identified within the supplied specification for transaction set {0} in any of the expected loops: {5}.  To change this to a warning, pass ParserConfiguration.ThrowExceptionOnSyntaxErrors = false to the X12Parser.",
+                    tran.IdentifierCode,
+                    tran.ControlNumber,
+                    "",
+                    segmentString,
+                    segmentIndex,
+                    string.Join(",", containerStack));
+                }
+
+                currentContainer = originalContainer;
+                currentContainer.AddSegment(segmentString, true);
+                Settings.OnParserWarning?.Invoke(
+                  this,
+                  new X12ParserWarningEventArgs {
+                    FileIsValid = false,
+                    InterchangeControlNumber = envelop.InterchangeControlNumber,
+                    FunctionalGroupControlNumber = fg.ControlNumber,
+                    TransactionControlNumber = tran.ControlNumber,
+                    SegmentPositionInInterchange = segmentIndex,
+                    SegmentId = segmentId,
+                    Segment = segmentString,
+                    Message =
+                      $"Segment '{segmentString}' in segment position {segmentIndex} within transaction '{tran.ControlNumber}' " +
+                      $"cannot be identified within the supplied specification for transaction set {tran.IdentifierCode} " +
+                      $"in any of the expected loops: {string.Join(",", containerStack)}.  " +
+                      $"It will be added to loop {containerStack.LastOrDefault()}, but this may invalidate all subsequent segments."
+                  });
+
+                break;
+              }
+
+              if (currentContainer is Loop cloop)
+                containerStack.Push(cloop.Specification.LoopId);
+              else if (currentContainer is HierarchicalLoop chloop)
+                containerStack.Push($"{chloop.Specification.LoopId}[{chloop.Id}]");
+
+              currentContainer = currentContainer.Parent;
+            }
 
             break;
         }

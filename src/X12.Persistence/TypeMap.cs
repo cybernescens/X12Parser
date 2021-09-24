@@ -2,15 +2,15 @@
 
 namespace X12.Persistence
 {
-  internal interface IColumnMetaBuilderTypeMap<out TKey>
+  internal interface IPropertyMetaBuilderTypeMap<out TKey>
   {
-    IColumnMetaBuilder Value { get; }
+    IPropertyMetaBuilder Value { get; }
   }
 
-  internal class ColumnMetaBuilderTypeMap<TKey> : IColumnMetaBuilderTypeMap<TKey>
+  internal class PropertyMetaBuilderTypeMap<TKey> : IPropertyMetaBuilderTypeMap<TKey>
     where TKey : SegmentType
   {
-    public ColumnMetaBuilderTypeMap(IColumnMetaBuilder value) { Value = value; }
+    public PropertyMetaBuilderTypeMap(IPropertyMetaBuilder value) { Value = value; }
 
     //public static explicit operator ColumnMetaBuilderTypeMap<SegmentType>(ColumnMetaBuilderTypeMap<TKey> specific) =>
     //  new ColumnMetaBuilderTypeMap<SegmentType>(specific.Value);
@@ -18,6 +18,6 @@ namespace X12.Persistence
     //public static implicit operator ColumnMetaBuilderTypeMap<SegmentType>(ColumnMetaBuilderTypeMap<TKey> specific) =>
     //  new ColumnMetaBuilderTypeMap<SegmentType>(specific.Value);
 
-    public IColumnMetaBuilder Value { get; }
+    public IPropertyMetaBuilder Value { get; }
   }
 }

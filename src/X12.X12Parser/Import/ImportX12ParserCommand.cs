@@ -38,13 +38,13 @@ namespace X12.X12Parser.Import
 
         var fi = new FileInfo(filename);
         using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
-        using (var session = sessionFactory.OpenSession())
+        using (var session = sessionFactory.OpenPersistence())
         {
           try
           {
             var hash = await sessionFactory.FileHashService.Compute(fs, filename);
             var interchanges = parser.Parse(fs, encoding);
-            session.Persist(interchanges, fi.FullName, hash.Hash, $"{Environment.UserDomainName}\\{Environment.UserName}");
+            session.Persist(interchanges, new FileHash(hash.File, hash.Hash));
             
             if (!string.IsNullOrWhiteSpace(args.ArchiveDirectory))
               MoveTo(fi, args.InputDirectory, args.ArchiveDirectory);

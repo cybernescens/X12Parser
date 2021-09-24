@@ -14,30 +14,30 @@ namespace X12.Persistence.Model
     public object FileId { get; set; }
 
     [MaxLength(15)]
-    public string Sender { get; set; }
+    public string Sender { get; init; }
     
     [MaxLength(15)]
-    public string Receiver { get; set; }
+    public string Receiver { get; init; }
 
     [MaxLength(50)]
-    public string ControlNumber { get; set; }
+    public string ControlNumber { get; init; }
 
     [MaxLength(15)]
     [Required]
     [DataType(DataType.DateTime)]
-    public DateTime Moment { get; set; }
+    public DateTime Moment { get; init; }
 
     [ColumnMetadata(true)]
     [Required]
-    public char SegmentTerminator { get; set; }
+    public char SegmentTerminator { get; init; }
 
     [ColumnMetadata(true)]
     [Required]
-    public char ElementSeparator { get; set; }
+    public char ElementSeparator { get; init; }
 
     [ColumnMetadata(true)]
     [Required]
-    public char ComponentSeparator { get; set; }
+    public char ComponentSeparator { get; init; }
 
     [ColumnMetadata(false)]
     [DefaultValue(0)]

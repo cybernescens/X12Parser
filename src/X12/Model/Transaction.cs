@@ -9,6 +9,7 @@ namespace X12.Model
   public class Transaction : HierarchicalLoopContainer
   {
     private IList<string> _loopStartingSegmentIds;
+    private HashSet<HierarchicalLoop> _hierarchicalLoops = new();
 
     internal Transaction(Container parent, X12DelimiterSet delimiters, string segment, TransactionSpecification spec)
       : base(parent, delimiters, segment)
@@ -16,11 +17,12 @@ namespace X12.Model
       Specification = spec;
     }
 
-    public override FunctionGroup Group => (FunctionGroup)Parent;
-
     protected internal override ISpecificationFinder SpecFinder => Group.SpecFinder;
-
+    public override FunctionGroup Group => (FunctionGroup)Parent;
+    public override string TransactionSetCode => IdentifierCode;
     public TransactionSpecification Specification { get; }
+    public Segment Trailer => _trailer;
+    internal override bool HasHierarchicalSpecification() => true;
 
     public string IdentifierCode
     {
@@ -46,15 +48,14 @@ namespace X12.Model
     protected override IList<SegmentSpecification> AllowedChildSegments => 
       Specification != null ? Specification.SegmentSpecifications : new List<SegmentSpecification>();
 
-    internal override IEnumerable<string> TrailerSegmentIds => 
-      Specification.SegmentSpecifications.Where(ss => ss.Trailer).Select(spec => spec.SegmentId).ToList();
-
     internal override void Initialize(string segment)
     {
       base.Initialize(segment);
       _loopStartingSegmentIds = new List<string>();
       _loopStartingSegmentIds.Add("NM1");
     }
+
+    internal bool AllowsHierarchicalLoop(HierarchicalLoop hl) => !_hierarchicalLoops.Contains(hl);
 
     public override bool AllowsHierarchicalLoop(string levelCode) =>
       Specification.HierarchicalLoopSpecifications.Exists(
@@ -75,10 +76,10 @@ namespace X12.Model
       return hloop;
     }
 
-    internal override string ToX12String(bool addWhitespace)
+    internal override string ToX12String(bool addWhitespace = false, int indent = 0, int step = 0)
     {
-      UpdateTrailerSegmentCount("SE", 1, CountTotalSegments());
-      return base.ToX12String(addWhitespace);
+      UpdateTrailerSegmentCount("SE", 1, Count);
+      return base.ToX12String(addWhitespace, indent, step);
     }
 
     internal override void WriteXml(XmlWriter writer)
@@ -91,5 +92,6 @@ namespace X12.Model
       base.WriteXml(writer);
       writer.WriteEndElement();
     }
+
   }
 }

@@ -18,7 +18,7 @@ namespace X12.Parsing
 
   public class X12ParserExtension : X12Parser, IX12ParserExtension
   {
-    public X12ParserExtension(IParserSettings settings) : base(settings) { }
+    public X12ParserExtension(ParserSettings settings) : base(settings) { }
 
     public string TransformToX12(string xml)
     {
@@ -39,7 +39,7 @@ namespace X12.Parsing
       var terminator = interchange._delimiters.SegmentTerminator;
       var service = new UnbundlingService(interchange._delimiters.SegmentTerminator);
       var isa = interchange.SegmentString;
-      var iea = interchange.TrailerSegments.First().SegmentString;
+      var iea = interchange.Trailer.SegmentString;
       var list = new List<string>();
       foreach (var group in interchange.FunctionGroups)
         foreach (var transaction in group.Transactions)
@@ -65,7 +65,7 @@ namespace X12.Parsing
 
       var terminator = interchange._delimiters.SegmentTerminator;
       var isa = interchange.SegmentString;
-      var iea = interchange.TrailerSegments.First().SegmentString;
+      var iea = interchange.Trailer.SegmentString;
       
       foreach (var group in interchange.FunctionGroups)
       {
@@ -75,7 +75,7 @@ namespace X12.Parsing
           x12.AppendFormat("{0}{1}", isa, terminator);
           x12.AppendFormat("{0}{1}", group.SegmentString, terminator);
           x12.Append(transaction.SerializeToX12(false));
-          x12.AppendFormat("{0}{1}", group.TrailerSegments.First().SegmentString, terminator);
+          x12.AppendFormat("{0}{1}", group.Trailer.SegmentString, terminator);
           x12.AppendFormat("{0}{1}", iea, terminator);
           using var ms = new MemoryStream(Encoding.ASCII.GetBytes(x12.ToString()));
           interchanges.AddRange(Parse(ms));

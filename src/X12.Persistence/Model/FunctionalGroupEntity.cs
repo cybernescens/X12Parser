@@ -19,7 +19,7 @@ namespace X12.Persistence.Model
 
     public int ControlNumber { get; set; }
 
-    [MaxLength(12)]
+    [MaxLength(16)]
     public string Version { get; set; }
 
     public static explicit operator FunctionalGroupEntity(FunctionGroup fg) =>

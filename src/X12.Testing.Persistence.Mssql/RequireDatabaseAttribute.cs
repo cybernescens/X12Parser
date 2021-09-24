@@ -32,7 +32,7 @@ namespace X12.Testing.Persistence.Mssql
         .ConnectionManager(MssqlConnectionConfiguration.Default.Using(_connectionString.ConnectionString))
         .IdentityProvider(LongHiLoSequenceIdentityProviderConfiguration.Default)
         .IndexedSegments(ToSegmentConfiguration(fixture.GenerateSegments, fixture.Segments))
-        .ColumnMetaBuilder(ColumnMetaBuilderConfiguration.Default)
+        .ColumnMetaBuilder(PropertyMetaBuilderConfiguration.Default)
         .Options(PersistenceOptionsConfiguration.Default);
         
       var generator = fixture.CurrentPersistenceConfiguration.Prepare();

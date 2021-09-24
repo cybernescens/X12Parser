@@ -143,7 +143,7 @@ namespace X12.X12Parser
               .ConnectionManager(cm)
               .IdentityProvider(ip)
               .BatchPersister(BulkCopyBatchPersisterConfiguration.Default)
-              .ColumnMetaBuilder(ColumnMetaBuilderConfiguration.Default)
+              .ColumnMetaBuilder(PropertyMetaBuilderConfiguration.Default)
               .IndexedSegments(
                 IndexedSegmentConfiguration
                   .Default
@@ -220,7 +220,7 @@ namespace X12.X12Parser
               .ConnectionManager(cm)
               .IdentityProvider(ip)
               .BatchPersister(BulkCopyBatchPersisterConfiguration.Default)
-              .ColumnMetaBuilder(ColumnMetaBuilderConfiguration.Default)
+              .ColumnMetaBuilder(PropertyMetaBuilderConfiguration.Default)
               .IndexedSegments(
                 IndexedSegmentConfiguration
                   .Default

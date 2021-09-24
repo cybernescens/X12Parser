@@ -36,8 +36,8 @@ namespace X12.Parsing
     Task<IList<Interchange>> ParseAsync(Stream stream, Encoding encoding = null);
 
     /// <summary>
-    /// The current <see cref="IParserSettings"/>
+    /// The current <see cref="ParserSettings"/>
     /// </summary>
-    IParserSettings Settings { get; }
+    ParserSettings Settings { get; }
   }
 }

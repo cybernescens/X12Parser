@@ -39,26 +39,21 @@ namespace X12.Parsing
     public string ReadSegmentId(string segmentString)
     {
       var index = segmentString.IndexOf(Delimiters.ElementSeparator);
-      if (index >= 0)
-        return segmentString.Substring(0, index);
-
-      return null;
+      return index >= 0 ? segmentString.Substring(0, index) : null;
     }
 
     public string[] SplitSegment(string segmentString)
     {
       var endSegmentIndex = segmentString.IndexOf(Delimiters.SegmentTerminator);
-      if (endSegmentIndex >= 0)
-        return segmentString.Substring(0, endSegmentIndex).Split(Delimiters.ElementSeparator);
-
-      return segmentString.Split(Delimiters.ElementSeparator);
+      return endSegmentIndex >= 0 
+        ? segmentString.Substring(0, endSegmentIndex).Split(Delimiters.ElementSeparator) 
+        : segmentString.Split(Delimiters.ElementSeparator);
     }
 
     public bool TransactionContainsSegment(string transaction, string segmentId)
     {
       var segments = transaction.Split(Delimiters.SegmentTerminator).ToList();
-
-      return segments.Exists(s => s.StartsWith(segmentId + Delimiters.ElementSeparator));
+      return segments.Exists(s => s.StartsWith(segmentId + Delimiters.ElementSeparator, StringComparison.Ordinal));
     }
 
     public string ReadNextSegment()

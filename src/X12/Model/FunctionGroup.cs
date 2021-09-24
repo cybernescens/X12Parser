@@ -23,7 +23,6 @@ namespace X12.Model
       : base(parent, delimiters, segment)
     {
       SpecFinder = specFinder;
-      Transactions = new List<Transaction>();
     }
 
     public override FunctionGroup Group => this;
@@ -31,6 +30,7 @@ namespace X12.Model
     protected internal override ISpecificationFinder SpecFinder { get; }
 
     public Interchange Interchange => (Interchange)Parent;
+    public Segment Trailer => _trailer;
 
     public string FunctionalIdentifierCode
     {
@@ -57,6 +57,12 @@ namespace X12.Model
           return date;
 
         if (DateTime.TryParseExact(GetElement(4), "yyyyMMdd", null, DateTimeStyles.None, out date))
+          return date;
+
+        if (DateTime.TryParseExact(GetElement(4), "yyyyMMd", null, DateTimeStyles.None, out date))
+          return date;
+          
+        if (DateTime.TryParseExact(GetElement(4), "yyMMdd", null, DateTimeStyles.None, out date))
           return date;
 
         throw new ArgumentException(
@@ -86,11 +92,11 @@ namespace X12.Model
       set => SetElement(8, value);
     }
 
-    public List<Transaction> Transactions { get; }
+    public List<Transaction> Transactions => Segments.OfType<Transaction>().ToList();
 
     protected override IList<SegmentSpecification> AllowedChildSegments => new List<SegmentSpecification>();
 
-    internal override IEnumerable<string> TrailerSegmentIds => new List<string>();
+    //internal override IEnumerable<string> TrailerSegmentIds => new List<string>();
 
     public Transaction FindTransaction(string controlNumber)
     {
@@ -100,19 +106,9 @@ namespace X12.Model
     internal Transaction AddTransaction(string segmentString)
     {
       var transactionType = new Segment(null, this._delimiters, segmentString).GetElement(1);
-
       var spec = SpecFinder.FindTransactionSpec(FunctionalIdentifierCode, VersionIdentifierCode, transactionType);
-
       var transaction = new Transaction(this, this._delimiters, segmentString, spec);
-      //if (_transactions.ContainsKey(transaction.ControlNumber))
-      //{
-      //    throw new TransactionValidationException("Transaction control number {1} for transaction code {0} already exist within the functional group {4}.",
-      //        transaction.IdentifierCode, transaction.ControlNumber, "ST02", transaction.ControlNumber, this.ControlNumber);
-      //}
-      //else
-      //{
-      Transactions.Add(transaction);
-      //}
+      _segments.Add(transaction);
       return transaction;
     }
 
@@ -135,23 +131,14 @@ namespace X12.Model
           this._delimiters.SegmentTerminator,
           controlNumber));
 
-      Transactions.Add(transaction);
+      _segments.Add(transaction);
       return transaction;
     }
-
-    internal override string SerializeBodyToX12(bool addWhitespace)
-    {
-      var sb = new StringBuilder();
-      foreach (var transaction in Transactions)
-        sb.Append(transaction.ToX12String(addWhitespace));
-
-      return sb.ToString();
-    }
-
-    internal override string ToX12String(bool addWhitespace)
+    
+    internal override string ToX12String(bool addWhitespace = false, int indent = 0, int step = 0)
     {
       UpdateTrailerSegmentCount("GE", 1, Transactions.Count());
-      return base.ToX12String(addWhitespace);
+      return base.ToX12String(addWhitespace, indent, step);
     }
 
     public virtual string Serialize()
@@ -176,14 +163,14 @@ namespace X12.Model
 
       base.WriteXml(writer);
 
-      foreach (var segment in Segments)
-        segment.WriteXml(writer);
+      //foreach (var segment in Segments)
+      //  segment.WriteXml(writer);
 
-      foreach (var transaction in Transactions)
-        transaction.WriteXml(writer);
+      //foreach (var transaction in Transactions)
+      //  transaction.WriteXml(writer);
 
-      foreach (var segment in TrailerSegments)
-        segment.WriteXml(writer);
+      //foreach (var segment in TrailerSegments)
+      //  segment.WriteXml(writer);
 
       writer.WriteEndElement();
     }

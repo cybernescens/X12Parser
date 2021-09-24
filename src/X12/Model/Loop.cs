@@ -19,7 +19,10 @@ namespace X12.Model
     }
     
     public LoopSpecification Specification { get; }
-
+    internal override IList<LoopSpecification> AllowedChildLoops => Specification.LoopSpecifications;
+    protected override IList<SegmentSpecification> AllowedChildSegments => Specification.SegmentSpecifications;
+    internal override bool HasHierarchicalSpecification() => Specification.HierarchicalLoopSpecifications.Any();
+    
     public string EntityIdentifierCode =>
       SegmentId switch {
         "CLI" => GetElement(1),
@@ -38,13 +41,6 @@ namespace X12.Model
         "SCH" => GetElement(3),
         _     => null
       };
-
-    internal override IList<LoopSpecification> AllowedChildLoops => Specification.LoopSpecifications;
-
-    protected override IList<SegmentSpecification> AllowedChildSegments => Specification.SegmentSpecifications;
-
-    internal override IEnumerable<string> TrailerSegmentIds => 
-      Specification.SegmentSpecifications.Where(ss => ss.Trailer).Select(spec => spec.SegmentId).ToList();
 
     public override bool AllowsHierarchicalLoop(string levelCode)
     {

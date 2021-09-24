@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using X12.Persistence.Meta;
+using X12.Persistence.Meta.Property;
 using X12.Persistence.Util;
 
 namespace X12.Persistence.Sql.Mssql
@@ -33,7 +34,7 @@ namespace X12.Persistence.Sql.Mssql
       _logger = lf.CreateLogger<HiLoIdentityProvider<T>>();
     }
 
-    public abstract SqlDataType ToSqlDataType();
+    public abstract PropertyDataType ToSqlDataType();
     protected abstract T ConvertResult(object o);
     protected abstract bool IsLessThan(T a, T b);
     protected abstract T Increment(ref Ids id);

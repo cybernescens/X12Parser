@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using X12.Parsing;
 
 namespace X12.Model
@@ -82,7 +83,7 @@ namespace X12.Model
         }
 
         default: {
-          foreach (var element in segment.TrimEnd(new[] { _delimiters.SegmentTerminator }).Substring(separatorIndex + 1)
+          foreach (var element in segment.TrimEnd(_delimiters.SegmentTerminator).Substring(separatorIndex + 1)
             .Split(_delimiters.ElementSeparator))
             _dataElements.Add(element);
 
@@ -128,7 +129,7 @@ namespace X12.Model
     public TimeSpan? GetTimeElement(int elementNumber)
     {
       var element = GetElement(elementNumber);
-      return element.Length switch {
+      return element?.Length switch {
         6 => new TimeSpan(Convert.ToInt32(element[..1]), Convert.ToInt32(element[2..3]), Convert.ToInt32(element[4..5])),
         4 => new TimeSpan(Convert.ToInt32(element[..1]), Convert.ToInt32(element[2..3]), 0),
         _ => null

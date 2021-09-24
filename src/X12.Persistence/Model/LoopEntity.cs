@@ -36,7 +36,7 @@ namespace X12.Persistence.Model
     [Required]
     public string TransactionSetCode { get; set; }
 
-    [MaxLength(7)]
+    [MaxLength(8)]
     [Required]
     public string SpecificationLoop { get; set; }
 

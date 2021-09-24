@@ -5,7 +5,8 @@ namespace X12.Persistence
   public interface IPersistenceSessionFactory
   {
     IFileHashService FileHashService { get; }
-    IPersistenceSession OpenSession();
+    IPersistenceSession OpenPersistence();
+    IHydrationSession OpenHydration();
     IX12Parser CreateParser();
   }
 }

@@ -30,13 +30,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".tests", ".tests", "{CB4433
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X12.Persistence", "X12.Persistence\X12.Persistence.csproj", "{6099AED9-A021-46E0-BC09-F0C8CBC8FCEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X12.Testing", "X12.Testing\X12.Testing.csproj", "{30687A00-308F-4D80-AD10-CAE83E7EB4B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X12.Testing", "X12.Testing\X12.Testing.csproj", "{30687A00-308F-4D80-AD10-CAE83E7EB4B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X12.Testing.Persistence.Mssql", "X12.Testing.Persistence.Mssql\X12.Testing.Persistence.Mssql.csproj", "{D2B954C5-8B28-4DDA-9498-4B92B7A9F13C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X12.Testing.Persistence.Mssql", "X12.Testing.Persistence.Mssql\X12.Testing.Persistence.Mssql.csproj", "{D2B954C5-8B28-4DDA-9498-4B92B7A9F13C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X12.Testing.Samples", "X12.Testing.Samples\X12.Testing.Samples.csproj", "{AAFC3277-FD42-4DA5-B888-F501FDF1C248}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X12.Tests.Persistence.Mssql", "X12.Tests.Persistence.Mssql\X12.Tests.Persistence.Mssql.csproj", "{A361ECF8-60EB-4D78-8D55-836939A380B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X12.Tests.Persistence.Mssql", "X12.Tests.Persistence.Mssql\X12.Tests.Persistence.Mssql.csproj", "{A361ECF8-60EB-4D78-8D55-836939A380B5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{F6EA8D91-7FEE-431E-9F19-BD79CF9FC967}"
 EndProject

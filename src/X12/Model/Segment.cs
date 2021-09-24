@@ -10,14 +10,47 @@ using X12.Parsing.Specification;
 
 namespace X12.Model
 {
-  public class Segment : DetachedSegment, IXmlSerializable
+  public class Segment : DetachedSegment, IXmlSerializable, IEquatable<Segment>
   {
     internal Segment(Container parent, X12DelimiterSet delimiters, string segment)
       : base(delimiters, segment)
     {
       Parent = parent;
-      this._delimiters = delimiters;
+      _delimiters = delimiters;
       Initialize(segment);
+    }
+
+    public virtual int Count => 1;
+
+    public bool Equals(Segment other)
+    {
+      if (ReferenceEquals(null, other))
+        return false;
+        
+      if (!ReferenceEquals(Parent, other.Parent))
+        return false;
+
+      if (SegmentId != other.SegmentId)
+        return false;
+
+      for(var i = 0; i < ElementCount; i++)
+        if (GetElement(i) != other.GetElement(i))
+          return false;
+
+      return true;
+    }
+
+    public override bool Equals(object obj) =>
+      !ReferenceEquals(null, obj) &&
+      (ReferenceEquals(this, obj) || 
+        obj.GetType() == GetType() && Equals((Segment)obj));
+
+    public override int GetHashCode()
+    {
+      unchecked
+      {
+        return (397 * Parent?.GetHashCode() ?? 0) ^ string.GetHashCode(SegmentString);
+      }
     }
 
     public Container Parent { get; }
@@ -29,8 +62,16 @@ namespace X12.Model
         Transaction tx   => tx.Group,
         _                => Parent.Transaction.Group
       };
+
+    public virtual string TransactionSetCode =>
+      Parent switch {
+        Interchange    => null,
+        FunctionGroup  => null,
+        Transaction tx => tx.IdentifierCode,
+        _              => Parent.Transaction.IdentifierCode
+      };
     
-    protected internal virtual ISpecificationFinder SpecFinder => Group.SpecFinder;
+    protected internal virtual ISpecificationFinder SpecFinder => Group?.SpecFinder ?? Parent?.SpecFinder;
 
     private SegmentSpecification SegmentSpec => 
       SpecFinder.FindSegmentSpec(Group != null ? Group.VersionIdentifierCode : string.Empty, SegmentId);
@@ -125,20 +166,22 @@ namespace X12.Model
       }
     }
 
-    internal virtual string ToX12String(bool addWhitespace)
+    internal virtual string ToX12String(bool addWhitespace = false, int indent = 0, int step = 0)
     {
       var sb = new StringBuilder();
       if (addWhitespace)
         sb.AppendLine();
 
+      sb.Append(string.Empty.PadLeft(indent, ' '));
       sb.Append(SegmentString);
-      if (this._delimiters.SegmentTerminator != '\r' && this._delimiters.SegmentTerminator != '\n')
-        sb.Append(this._delimiters.SegmentTerminator);
+
+      if (_delimiters.SegmentTerminator != '\r' && _delimiters.SegmentTerminator != '\n')
+        sb.Append(_delimiters.SegmentTerminator);
 
       return sb.ToString();
     }
 
-    public string SerializeToX12(bool addWhitespace) => ToX12String(addWhitespace).Trim();
+    public string SerializeToX12(bool addWhitespace, int indent = 0) => ToX12String(addWhitespace, 0, indent).Trim();
 
     #region IXmlSerializable Members
 
@@ -156,7 +199,7 @@ namespace X12.Model
       writer.WriteStartElement(SegmentId);
       for (var i = 0; i < _dataElements.Count; i++)
       {
-        var elementName = string.Format("{0}{1:00}", SegmentId, i + 1);
+        var elementName = $"{SegmentId}{i + 1:00}";
 
         var identifiers = new List<AllowedIdentifier>();
 
@@ -189,7 +232,7 @@ namespace X12.Model
           var subElements = _dataElements[i].Split(this._delimiters.SubElementSeparator);
           for (var j = 0; j < subElements.Length; j++)
           {
-            var subElementName = string.Format("{0}{1:00}", elementName, j + 1);
+            var subElementName = $"{elementName}{j + 1:00}";
             writer.WriteStartElement(subElementName);
             writer.WriteValue(subElements[j]);
             if (SegmentSpec != null &&
@@ -214,5 +257,19 @@ namespace X12.Model
     public override string ToString() => SegmentString;
 
     #endregion
+  }
+
+  public class SegmentEqualityComparer : IEqualityComparer<Segment>
+  {
+    public static SegmentEqualityComparer Default => new();
+
+    public bool Equals(Segment x, Segment y) =>
+      (x, y) switch {
+        ({ }, { })   => x.Equals(y),
+        (null, null) => true,
+        _            => false
+      };
+
+    public int GetHashCode(Segment obj) => obj.GetHashCode();
   }
 }

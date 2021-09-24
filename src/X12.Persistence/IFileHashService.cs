@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using X12.Persistence.File;
 
 namespace X12.Persistence
 {

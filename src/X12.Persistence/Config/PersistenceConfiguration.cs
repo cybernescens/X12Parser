@@ -1,16 +1,18 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using X12.Config;
+using X12.Parsing;
 using X12.Persistence.File;
 using X12.Persistence.Impl;
 
 namespace X12.Persistence.Config
 {
-  public class PersistenceConfiguration : IPersistenceConfiguration
+  public class PersistenceConfiguration : ParserConfiguration, IPersistenceConfiguration
   {
-    public static PersistenceConfiguration Default => new();
+    public new static PersistenceConfiguration Default => new();
 
-    protected IServiceProvider ServiceProvider { get; set; }
+    private IServiceProvider ServiceProvider { get; set; }
     protected bool BatchPersisterConfigurationRequired { get; init; } = true;
     protected bool PersistenceSessionConfigurationRequired { get; init; } = true;
 
@@ -21,7 +23,7 @@ namespace X12.Persistence.Config
     public ConnectionManagerConfiguration ConnectionManagerConfiguration { get; set; }
     public IdentityProviderConfiguration IdentityProviderConfiguration { get; set; }
     public IndexedSegmentConfiguration IndexedSegmentsConfiguration { get; set; }
-    public ColumnMetaBuilderConfiguration ColumnMetaBuilderConfiguration { get; set; } = ColumnMetaBuilderConfiguration.Default;
+    public PropertyMetaBuilderConfiguration PropertyMetaBuilderConfiguration { get; set; } = PropertyMetaBuilderConfiguration.Default;
     public BatchPersisterConfiguration BatchPersisterConfiguration { get; set; } 
 
     public IPersistenceSessionFactory Build()
@@ -61,28 +63,30 @@ namespace X12.Persistence.Config
         throw new X12PersistenceConfigurationException(
           $"{nameof(IndexedSegmentsConfiguration)} has not been configured.");
 
-      if (ColumnMetaBuilderConfiguration == null)
+      if (PropertyMetaBuilderConfiguration == null)
         throw new X12PersistenceConfigurationException(
-          $"{nameof(ColumnMetaBuilderConfiguration)} has not been configured.");
+          $"{nameof(PropertyMetaBuilderConfiguration)} has not been configured.");
 
       if (BatchPersisterConfigurationRequired && BatchPersisterConfiguration == null)
         throw new X12PersistenceConfigurationException(
           $"{nameof(BatchPersisterConfiguration)} has not been configured.");
     }
 
-    protected virtual IServiceCollection Apply(IServiceCollection sc = null)
+    protected override IServiceCollection Apply(IServiceCollection? sc = null)
     {
       sc ??= new ServiceCollection();
+      
+      base.Apply(sc);
+
       PersistenceOptionsConfiguration.Apply(sc);
       PersistenceSessionConfiguration?.Apply(sc);
-      ParserConfiguration.Apply(sc);
       ConnectionManagerConfiguration?.Apply(sc);
       IdentityProviderConfiguration.Apply(sc);
       IndexedSegmentsConfiguration.Apply(sc);
-      ColumnMetaBuilderConfiguration.Apply(sc);
+      PropertyMetaBuilderConfiguration.Apply(sc);
       BatchPersisterConfiguration?.Apply(sc);
-      sc.AddLogging(LoggingConfiguration);
       
+      sc.AddLogging(LoggingConfiguration);
       sc.AddSingleton<IFileHashService, SHA384FileHashService>();
       sc.AddSingleton<IPersistenceSessionFactory, PersistenceSessionFactory>();
       sc.AddScoped<PersistenceSession, PersistenceSession>();
@@ -102,15 +106,6 @@ namespace X12.Persistence.Config
       return this;
     }
     
-    public PersistenceConfiguration Parser(
-      ParserConfiguration config, 
-      Action<ParserConfiguration> action = null)
-    {
-      ParserConfiguration = config;
-      action?.Invoke(ParserConfiguration);
-      return this;
-    }
-
     public PersistenceConfiguration Options(
       PersistenceOptionsConfiguration config,
       Action<PersistenceOptionsConfiguration> action = null)
@@ -144,15 +139,21 @@ namespace X12.Persistence.Config
       return this;
     }
 
-    public PersistenceConfiguration ColumnMetaBuilder(ColumnMetaBuilderConfiguration config)
+    public PersistenceConfiguration ColumnMetaBuilder(PropertyMetaBuilderConfiguration config)
     {
-      ColumnMetaBuilderConfiguration = config;
+      PropertyMetaBuilderConfiguration = config;
       return this;
     }
 
     public PersistenceConfiguration BatchPersister(BatchPersisterConfiguration config)
     {
       BatchPersisterConfiguration = config;
+      return this;
+    }
+
+    public override PersistenceConfiguration Parser(Action<ParserSettings> action)
+    {
+      action(ParserSettings);
       return this;
     }
   }

@@ -6,7 +6,12 @@ namespace X12.Persistence
 {
   public interface IPersistenceSession : IDisposable
   {
-    void Persist(IEnumerable<Interchange> interchanges, string filepath, string filehash, string? username = null);
+    void Persist(IEnumerable<Interchange> interchanges, FileHash sourceFile);
+  }
+
+  public interface IHydrationSession : IDisposable
+  {
+    IEnumerable<Interchange> Hydrate(FileHash sourceFile);
   }
 
   internal class SessionPersistEventArgs : EventArgs
@@ -15,9 +20,18 @@ namespace X12.Persistence
     internal Guid SessionId { get; }
   }
 
-  internal interface IIdentifiablePersistenceSession : IPersistenceSession
+  internal interface IIdentifiableSession : IDisposable
   {
     Guid Id { get; }
+  }
+
+  internal interface IIdentifiablePersistenceSession : IPersistenceSession, IIdentifiableSession
+  {
     EventHandler<SessionPersistEventArgs>? OnPersistComplete { get; set; }
+  }
+
+  internal interface IIdentifiableHydrationSession : IHydrationSession, IIdentifiableSession
+  {
+    EventHandler<SessionPersistEventArgs>? OnHydrateComplete { get; set; }
   }
 }

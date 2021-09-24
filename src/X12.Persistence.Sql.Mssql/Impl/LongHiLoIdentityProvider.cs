@@ -2,6 +2,7 @@
 using System.Data.Common;
 using Microsoft.Extensions.Logging;
 using X12.Persistence.Meta;
+using X12.Persistence.Meta.Property;
 
 namespace X12.Persistence.Sql.Mssql
 {
@@ -10,7 +11,7 @@ namespace X12.Persistence.Sql.Mssql
     public LongHiLoIdentityProvider(PersistenceOptions options, DbConnectionStringBuilder connectionStringBuilder, ILoggerFactory lf)
       : base(options, connectionStringBuilder, lf) { }
 
-    public override SqlDataType ToSqlDataType() => IntegerSqlType.Big();
+    public override PropertyDataType ToSqlDataType() => IntegerPropertyType.Big();
     protected override long ConvertResult(object o) => Convert.ToInt64(o);
     protected override bool IsLessThan(long a, long b) => a < b;
     protected override long Increment(ref Ids id) => ++id.NextId;

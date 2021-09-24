@@ -7,7 +7,7 @@ namespace X12.Persistence
 {
   public interface IBatchPersister : IDisposable
   {
-    void Configure(IDisposable disposable, SegmentType segmentType, IList<ColumnMetadata> columnMetadata);
+    void Configure(IDisposable connection, SegmentType segmentType, IList<BatchPropertyMetadata> columnMetadata);
     long Persist(ISegmentBatch batch);
   }
 }

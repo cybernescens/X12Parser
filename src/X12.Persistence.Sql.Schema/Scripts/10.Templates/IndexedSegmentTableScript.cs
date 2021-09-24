@@ -8,12 +8,12 @@ namespace X12.Persistence.Sql.Schema.Scripts._10.Templates
 {
   internal class IndexedSegmentTableScript : SqlScript
   {
-    private readonly IList<ColumnMetadata> columnMetadata;
+    private readonly IList<BatchPropertyMetadata> columnMetadata;
     private readonly string segment;
 
     public IndexedSegmentTableScript(
       string segment,
-      IList<ColumnMetadata> columnMetadata,
+      IList<BatchPropertyMetadata> columnMetadata,
       SqlScriptOptions sqlScriptOptions = null)
       : base($"{typeof(IndexedSegmentTableScript).Namespace}._1000.{segment}", null, sqlScriptOptions)
     {
