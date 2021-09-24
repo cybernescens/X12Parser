@@ -193,11 +193,23 @@ namespace X12.Tests.Persistence.Mssql
               {
                 var pii = reader.Get<int>("PositionInInterchange");
                 var expected = segments[pii];
+                Type fieldType = null;
                 elementsChecked = expected.ElementCount;
 
                 for (var i = 1; i <= expected.ElementCount; i++)
                 {
-                  Func<object> ef = reader.GetFieldType($"{i:D2}").Name switch {
+                  try
+                  {
+                    fieldType = reader.GetFieldType($"{i:D2}");
+                  }
+                  catch
+                  {
+                    Assert.Fail(
+                      $"Unable to find reader column named `{i:D2}` on table `{index}`. " +
+                      $"Available columns are {reader.GetColumnSchema().Select(x => x.ColumnName).Aggregate((acc, x) => $"{acc}, {x}")}");
+                  }
+
+                  Func<object> ef = fieldType.Name switch {
                     nameof(String)   => () => expected.GetElement(i),
                     nameof(DateTime) => () => expected.GetDate8Element(i),
                     nameof(Decimal)  => () => expected.GetDecimalElement(i),
@@ -206,7 +218,7 @@ namespace X12.Tests.Persistence.Mssql
                     _                => () => expected.GetElement(i),
                   };
 
-                  Func<object> af = reader.GetFieldType($"{i:D2}").Name switch {
+                  Func<object> af = fieldType.Name switch {
                     nameof(String)   => () => reader.Get($"{i:D2}"),
                     nameof(DateTime) => () => reader.Get<DateTime?>($"{i:D2}"),
                     nameof(Decimal)  => () => reader.Get<decimal?>($"{i:D2}"),

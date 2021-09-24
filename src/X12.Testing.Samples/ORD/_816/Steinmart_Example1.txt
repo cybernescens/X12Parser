@@ -14,7 +14,7 @@
             DTM~145~19861009}
         HL~3~1~36}
           N1~BU~STEINMART~93~0003}
-            N3~8665~S.W. 40TH STREET~(BIND RD)}
+            N3~8665~S.W. 40TH STREET}
             N4~MIAMI~FL~33165}
             PER~IC~~TE~03052231711}
             REF~WS~00905}
