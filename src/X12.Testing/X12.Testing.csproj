@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\X12.Testing.Persistence.Mssql\X12.Testing.Persistence.Mssql.csproj" />
     <ProjectReference Include="..\X12\X12.csproj" />
   </ItemGroup>
 
