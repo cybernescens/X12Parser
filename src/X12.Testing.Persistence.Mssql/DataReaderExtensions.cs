@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using ConsoleTables;
 
 namespace X12.Testing.Persistence.Mssql
 {
@@ -49,6 +48,38 @@ namespace X12.Testing.Persistence.Mssql
       }
 
       return false;
+    }
+
+    public static void Print(this IDataReader reader)
+    {
+      if (reader.IsClosed)
+        return;
+
+      var header = new string[reader.FieldCount];
+      for (var c = 0; c < reader.FieldCount; c++)
+        header[c] = reader.GetName(c);
+
+      var ct = new ConsoleTable(header);
+
+      while (reader.Read())
+      {
+        var row = new object[reader.FieldCount];
+        for (var i = 0; i < reader.FieldCount; i++)
+        {
+          var v = reader[i];
+          if (reader.GetFieldType(i) == typeof(string))
+          {
+            var tmp = Convert.ToString(v);
+            v = (tmp ?? string.Empty).Replace("\r", "\\r").Replace("\n", "\\n");
+          }
+
+          row[i] = v;
+        }
+
+        ct.AddRow(row);
+      }
+
+      ct.Write(Format.Minimal);
     }
   }
 }
